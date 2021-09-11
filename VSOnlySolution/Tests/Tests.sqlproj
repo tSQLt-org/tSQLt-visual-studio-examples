@@ -65,19 +65,15 @@
       <Private>True</Private>
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
     </ProjectReference>
-    <ProjectReference Include="..\tSQLt\tSQLt.sqlproj">
-      <Name>tSQLt</Name>
-      <Project>{8283acb4-5a1b-45d2-bac0-549d56cc32ad}</Project>
-      <Private>True</Private>
-      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Build Include="Test1.sql" />
+    <Build Include="SomeRandomTests.sql" />
+    <Build Include="Test2.sql" />
   </ItemGroup>
   <ItemGroup>
-    <ArtifactReference Include="..\tSQLt\tSQLtFacade.2016.dacpac">
-      <HintPath>..\tSQLt\tSQLtFacade.2016.dacpac</HintPath>
+    <ArtifactReference Include="..\tSQLt\Facade\tSQLtFacade.2016.dacpac">
+      <HintPath>..\tSQLt\Facade\tSQLtFacade.2016.dacpac</HintPath>
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
     </ArtifactReference>
   </ItemGroup>

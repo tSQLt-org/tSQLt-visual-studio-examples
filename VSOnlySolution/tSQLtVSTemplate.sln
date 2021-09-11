@@ -8,6 +8,9 @@ EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Tests", "Tests\Tests.sqlproj", "{EE43A423-3F58-43BF-BCF8-CDCBA6C87090}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "tSQLt", "tSQLt\tSQLt.sqlproj", "{8283ACB4-5A1B-45D2-BAC0-549D56CC32AD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EE43A423-3F58-43BF-BCF8-CDCBA6C87090} = {EE43A423-3F58-43BF-BCF8-CDCBA6C87090}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

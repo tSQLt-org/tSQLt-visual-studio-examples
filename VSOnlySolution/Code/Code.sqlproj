@@ -58,4 +58,8 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="ARandomTable.sql" />
+    <Build Include="ARandomProc.sql" />
+  </ItemGroup>
 </Project>

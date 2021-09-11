@@ -61,6 +61,6 @@
     <PostDeploy Include="tSQLt.class.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="tSQLtFacade.2016.dacpac" />
+    <None Include="tSQLt.Run.sql" />
   </ItemGroup>
 </Project>
