@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# SQL Server Management Studio Solution File, Format Version 18.00
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Code", "Code\Code.ssmssqlproj", "{6CBE4395-3F64-4917-A768-A07AAD4F1CEA}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Tests", "Tests\Tests.ssmssqlproj", "{4F31AE97-01FE-4E39-9202-0FCB26C7FC3C}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "tSQLt", "tSQLt\tSQLt.ssmssqlproj", "{E4EDE155-99DD-4501-AAFE-9FAEB8FDCE20}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CBE4395-3F64-4917-A768-A07AAD4F1CEA}.Default|Default.ActiveCfg = Default
+		{977BB47B-B7FB-4E77-86CF-191D973B54F3}.Default|Default.ActiveCfg = Default
+		{4F31AE97-01FE-4E39-9202-0FCB26C7FC3C}.Default|Default.ActiveCfg = Default
+		{E4EDE155-99DD-4501-AAFE-9FAEB8FDCE20}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A5B51F2C-D28F-465E-941C-4C151BF838C7}
+	EndGlobalSection
+EndGlobal
