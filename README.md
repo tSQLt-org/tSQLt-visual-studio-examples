@@ -8,8 +8,7 @@ The general project structure we recommend consists of one or more "code" projec
 
 |Example Project Structure|
 |-|
-|![Example Project Structure](https://user-images.githubusercontent.com/298017/133071915-2b530232-8387-44d6-a219-b7fa7f4e6832.png)
-|
+|![Example Project Structure](https://user-images.githubusercontent.com/298017/133071915-2b530232-8387-44d6-a219-b7fa7f4e6832.png)|
 ||
 
 It is also recommended to change the "debug" database to a (developer-edition) SQL Server instance instead of the default localdb included with VS.
