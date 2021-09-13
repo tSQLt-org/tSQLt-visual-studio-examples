@@ -1,0 +1,1 @@
+﻿CREATE PROCEDURE [tSQLt].[XmlResultFormatter]  AS BEGIN  RETURN; END;

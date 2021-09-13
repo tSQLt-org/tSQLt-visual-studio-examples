@@ -1,0 +1,1 @@
+﻿CREATE FUNCTION [tSQLt].[TestCaseSummary]() RETURNS TABLE AS RETURN SELECT TOP(0) CAST(NULL AS [sys].[nvarchar](233)) AS [Msg],CAST(NULL AS [sys].[int]) AS [Cnt],CAST(NULL AS [sys].[int]) AS [SuccessCnt],CAST(NULL AS [sys].[int]) AS [SkippedCnt],CAST(NULL AS [sys].[int]) AS [FailCnt],CAST(NULL AS [sys].[int]) AS [ErrorCnt];

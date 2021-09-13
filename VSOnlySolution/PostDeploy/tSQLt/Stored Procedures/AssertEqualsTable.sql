@@ -1,0 +1,1 @@
+﻿CREATE PROCEDURE [tSQLt].[AssertEqualsTable]  @Expected [sys].[nvarchar](MAX) = NULL ,@Actual [sys].[nvarchar](MAX) = NULL ,@Message [sys].[nvarchar](MAX) = NULL ,@FailMsg [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

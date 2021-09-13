@@ -1,0 +1,1 @@
+﻿CREATE PROCEDURE [tSQLt].[RemoveExternalAccessKey]  AS BEGIN  RETURN; END;

@@ -1,0 +1,1 @@
+﻿CREATE PROCEDURE [tSQLt].[AssertEmptyTable]  @TableName [sys].[nvarchar](MAX) = NULL ,@Message [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

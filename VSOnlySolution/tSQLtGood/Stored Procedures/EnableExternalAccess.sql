@@ -1,0 +1,1 @@
+﻿CREATE PROCEDURE [tSQLt].[EnableExternalAccess]  @try [sys].[bit] = NULL ,@enable [sys].[bit] = NULL  AS BEGIN  RETURN; END;

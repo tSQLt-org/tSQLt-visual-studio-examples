@@ -1,0 +1,1 @@
+﻿CREATE PROCEDURE [tSQLt].[Run]  @TestName [sys].[nvarchar](MAX) = NULL ,@TestResultFormatter [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{ee43a423-3f58-43bf-bcf8-cdcba6c87090}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -59,22 +59,22 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
+    <Build Include="Test1.sql" />
+    <Build Include="SomeRandomTests.sql" />
+    <Build Include="Test2.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ArtifactReference Include="..\tSQLt2019.dacpac">
+      <HintPath>..\tSQLt2019.dacpac</HintPath>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+    </ArtifactReference>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Code\Code.sqlproj">
       <Name>Code</Name>
       <Project>{e0ddd667-81ca-4c66-9ab3-35100d15e98c}</Project>
       <Private>True</Private>
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Build Include="Test1.sql" />
-    <Build Include="SomeRandomTests.sql" />
-    <Build Include="Test2.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <ArtifactReference Include="..\tSQLt\Facade\tSQLtFacade.2016.dacpac">
-      <HintPath>..\tSQLt\Facade\tSQLtFacade.2016.dacpac</HintPath>
-      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
-    </ArtifactReference>
   </ItemGroup>
 </Project>

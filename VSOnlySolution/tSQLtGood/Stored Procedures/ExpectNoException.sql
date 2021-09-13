@@ -1,0 +1,1 @@
+﻿CREATE PROCEDURE [tSQLt].[ExpectNoException]  @Message [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

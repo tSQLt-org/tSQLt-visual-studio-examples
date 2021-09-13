@@ -1,0 +1,1 @@
+﻿CREATE FUNCTION [tSQLt].[GetTestResultFormatter]() RETURNS [sys].[nvarchar](MAX) AS BEGIN RETURN CAST(NULL AS [sys].[nvarchar](MAX)); END;

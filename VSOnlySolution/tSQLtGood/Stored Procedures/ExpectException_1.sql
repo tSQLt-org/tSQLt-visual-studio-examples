@@ -1,0 +1,1 @@
+﻿CREATE PROCEDURE [tSQLt].[ExpectException]  @ExpectedMessage [sys].[nvarchar](MAX) = NULL ,@ExpectedSeverity [sys].[int] = NULL ,@ExpectedState [sys].[int] = NULL ,@Message [sys].[nvarchar](MAX) = NULL ,@ExpectedMessagePattern [sys].[nvarchar](MAX) = NULL ,@ExpectedErrorNumber [sys].[int] = NULL  AS BEGIN  RETURN; END;

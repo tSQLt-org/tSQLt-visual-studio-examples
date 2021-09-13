@@ -1,0 +1,1 @@
+﻿CREATE PROCEDURE [tSQLt].[AssertResultSetsHaveSameMetaData]  @expectedCommand [sys].[nvarchar](MAX) = NULL ,@actualCommand [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

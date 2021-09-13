@@ -1,0 +1,1 @@
+﻿CREATE FUNCTION [tSQLt].[F_Num](@N [sys].[int]) RETURNS TABLE AS RETURN SELECT TOP(0) CAST(NULL AS [sys].[bigint]) AS [no];

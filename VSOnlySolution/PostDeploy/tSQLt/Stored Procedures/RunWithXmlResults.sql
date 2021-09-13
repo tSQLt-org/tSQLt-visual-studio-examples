@@ -1,0 +1,1 @@
+﻿CREATE PROCEDURE [tSQLt].[RunWithXmlResults]  @TestName [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

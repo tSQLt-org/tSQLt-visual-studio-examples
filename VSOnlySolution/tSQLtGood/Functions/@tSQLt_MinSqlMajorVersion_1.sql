@@ -1,0 +1,1 @@
+﻿CREATE FUNCTION [tSQLt].[@tSQLt:MinSqlMajorVersion](@MinVersion [sys].[int]) RETURNS TABLE AS RETURN SELECT TOP(0) CAST(NULL AS [sys].[nvarchar](MAX)) AS [AnnotationCmd];

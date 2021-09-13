@@ -1,0 +1,1 @@
+﻿CREATE PROCEDURE [tSQLt].[ApplyTrigger]  @TableName [sys].[nvarchar](MAX) = NULL ,@TriggerName [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

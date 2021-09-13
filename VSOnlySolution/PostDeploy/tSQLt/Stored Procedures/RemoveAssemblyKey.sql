@@ -1,0 +1,1 @@
+﻿CREATE PROCEDURE [tSQLt].[RemoveAssemblyKey]  AS BEGIN  RETURN; END;

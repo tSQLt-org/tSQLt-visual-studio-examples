@@ -1,0 +1,1 @@
+﻿CREATE PROCEDURE [tSQLt].[SetFakeViewOn]  @SchemaName [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

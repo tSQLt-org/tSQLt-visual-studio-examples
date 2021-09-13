@@ -1,0 +1,1 @@
+﻿CREATE VIEW [tSQLt].[Tests] AS SELECT TOP(0) CAST(NULL AS [sys].[int]) AS [SchemaId],CAST(NULL AS [sys].[sysname]) AS [TestClassName],CAST(NULL AS [sys].[int]) AS [ObjectId],CAST(NULL AS [sys].[sysname]) AS [Name]

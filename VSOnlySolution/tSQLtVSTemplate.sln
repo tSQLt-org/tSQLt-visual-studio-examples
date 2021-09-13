@@ -7,11 +7,6 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Code", "Code\Code.sqlproj",
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Tests", "Tests\Tests.sqlproj", "{EE43A423-3F58-43BF-BCF8-CDCBA6C87090}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "tSQLt", "tSQLt\tSQLt.sqlproj", "{8283ACB4-5A1B-45D2-BAC0-549D56CC32AD}"
-	ProjectSection(ProjectDependencies) = postProject
-		{EE43A423-3F58-43BF-BCF8-CDCBA6C87090} = {EE43A423-3F58-43BF-BCF8-CDCBA6C87090}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,12 +25,6 @@ Global
 		{EE43A423-3F58-43BF-BCF8-CDCBA6C87090}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE43A423-3F58-43BF-BCF8-CDCBA6C87090}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EE43A423-3F58-43BF-BCF8-CDCBA6C87090}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{8283ACB4-5A1B-45D2-BAC0-549D56CC32AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8283ACB4-5A1B-45D2-BAC0-549D56CC32AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8283ACB4-5A1B-45D2-BAC0-549D56CC32AD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{8283ACB4-5A1B-45D2-BAC0-549D56CC32AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8283ACB4-5A1B-45D2-BAC0-549D56CC32AD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8283ACB4-5A1B-45D2-BAC0-549D56CC32AD}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

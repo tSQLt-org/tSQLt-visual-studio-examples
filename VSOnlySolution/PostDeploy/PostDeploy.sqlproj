@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>PostDeploy</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{ac263349-a2f6-4299-95e7-13e74ee65c59}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>PostDeploy</RootNamespace>
+    <AssemblyName>PostDeploy</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="tSQLt\" />
+    <Folder Include="tSQLt\Tables\" />
+    <Folder Include="tSQLt\Views\" />
+    <Folder Include="Security\" />
+    <Folder Include="tSQLt\Functions\" />
+    <Folder Include="tSQLt\Stored Procedures\" />
+    <Folder Include="tSQLt\User Defined Types\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="tSQLt\Tables\CaptureOutputLog.sql" />
+    <Build Include="tSQLt\Tables\Run_LastExecution.sql" />
+    <Build Include="tSQLt\Tables\TestMessage.sql" />
+    <Build Include="tSQLt\Tables\TestResult.sql" />
+    <Build Include="tSQLt\Views\TestClasses.sql" />
+    <Build Include="tSQLt\Views\Tests.sql" />
+    <Build Include="Security\tSQLt.TestClass.sql" />
+    <Build Include="tSQLt\Functions\GetTestResultFormatter.sql" />
+    <Build Include="tSQLt\Functions\%40tSQLt_MaxSqlMajorVersion.sql" />
+    <Build Include="tSQLt\Functions\%40tSQLt_MinSqlMajorVersion.sql" />
+    <Build Include="tSQLt\Functions\%40tSQLt_RunOnlyOnHostPlatform.sql" />
+    <Build Include="tSQLt\Functions\%40tSQLt_SkipTest.sql" />
+    <Build Include="tSQLt\Functions\F_Num.sql" />
+    <Build Include="tSQLt\Functions\FriendlySQLServerVersion.sql" />
+    <Build Include="tSQLt\Functions\Info.sql" />
+    <Build Include="tSQLt\Functions\TestCaseSummary.sql" />
+    <Build Include="tSQLt\Stored Procedures\ApplyConstraint.sql" />
+    <Build Include="tSQLt\Stored Procedures\ApplyTrigger.sql" />
+    <Build Include="tSQLt\Stored Procedures\AssertEmptyTable.sql" />
+    <Build Include="tSQLt\Stored Procedures\AssertEquals.sql" />
+    <Build Include="tSQLt\Stored Procedures\AssertEqualsString.sql" />
+    <Build Include="tSQLt\Stored Procedures\AssertEqualsTable.sql" />
+    <Build Include="tSQLt\Stored Procedures\AssertEqualsTableSchema.sql" />
+    <Build Include="tSQLt\Stored Procedures\AssertLike.sql" />
+    <Build Include="tSQLt\Stored Procedures\AssertNotEquals.sql" />
+    <Build Include="tSQLt\Stored Procedures\AssertObjectDoesNotExist.sql" />
+    <Build Include="tSQLt\Stored Procedures\AssertObjectExists.sql" />
+    <Build Include="tSQLt\Stored Procedures\AssertResultSetsHaveSameMetaData.sql" />
+    <Build Include="tSQLt\Stored Procedures\AssertStringIn.sql" />
+    <Build Include="tSQLt\Stored Procedures\CaptureOutput.sql" />
+    <Build Include="tSQLt\Stored Procedures\DefaultResultFormatter.sql" />
+    <Build Include="tSQLt\Stored Procedures\DropClass.sql" />
+    <Build Include="tSQLt\Stored Procedures\EnableExternalAccess.sql" />
+    <Build Include="tSQLt\Stored Procedures\ExpectException.sql" />
+    <Build Include="tSQLt\Stored Procedures\ExpectNoException.sql" />
+    <Build Include="tSQLt\Stored Procedures\Fail.sql" />
+    <Build Include="tSQLt\Stored Procedures\FakeFunction.sql" />
+    <Build Include="tSQLt\Stored Procedures\FakeTable.sql" />
+    <Build Include="tSQLt\Stored Procedures\GetNewTranName.sql" />
+    <Build Include="tSQLt\Stored Procedures\InstallAssemblyKey.sql" />
+    <Build Include="tSQLt\Stored Procedures\InstallExternalAccessKey.sql" />
+    <Build Include="tSQLt\Stored Procedures\LogCapturedOutput.sql" />
+    <Build Include="tSQLt\Stored Procedures\NewConnection.sql" />
+    <Build Include="tSQLt\Stored Procedures\NewTestClass.sql" />
+    <Build Include="tSQLt\Stored Procedures\NullTestResultFormatter.sql" />
+    <Build Include="tSQLt\Stored Procedures\PrepareServer.sql" />
+    <Build Include="tSQLt\Stored Procedures\RemoveAssemblyKey.sql" />
+    <Build Include="tSQLt\Stored Procedures\RemoveExternalAccessKey.sql" />
+    <Build Include="tSQLt\Stored Procedures\RemoveObject.sql" />
+    <Build Include="tSQLt\Stored Procedures\RemoveObjectIfExists.sql" />
+    <Build Include="tSQLt\Stored Procedures\RenameClass.sql" />
+    <Build Include="tSQLt\Stored Procedures\Reset.sql" />
+    <Build Include="tSQLt\Stored Procedures\ResultSetFilter.sql" />
+    <Build Include="tSQLt\Stored Procedures\Run.sql" />
+    <Build Include="tSQLt\Stored Procedures\RunAll.sql" />
+    <Build Include="tSQLt\Stored Procedures\RunC.sql" />
+    <Build Include="tSQLt\Stored Procedures\RunNew.sql" />
+    <Build Include="tSQLt\Stored Procedures\RunTest.sql" />
+    <Build Include="tSQLt\Stored Procedures\RunTestClass.sql" />
+    <Build Include="tSQLt\Stored Procedures\RunWithNullResults.sql" />
+    <Build Include="tSQLt\Stored Procedures\RunWithXmlResults.sql" />
+    <Build Include="tSQLt\Stored Procedures\SetFakeViewOff.sql" />
+    <Build Include="tSQLt\Stored Procedures\SetFakeViewOn.sql" />
+    <Build Include="tSQLt\Stored Procedures\SetSummaryError.sql" />
+    <Build Include="tSQLt\Stored Procedures\SetTestResultFormatter.sql" />
+    <Build Include="tSQLt\Stored Procedures\SetVerbose.sql" />
+    <Build Include="tSQLt\Stored Procedures\SpyProcedure.sql" />
+    <Build Include="tSQLt\Stored Procedures\StubRecord.sql" />
+    <Build Include="tSQLt\Stored Procedures\SuppressOutput.sql" />
+    <Build Include="tSQLt\Stored Procedures\TableToText.sql" />
+    <Build Include="tSQLt\Stored Procedures\Uninstall.sql" />
+    <Build Include="tSQLt\Stored Procedures\XmlResultFormatter.sql" />
+    <Build Include="tSQLt\User Defined Types\AssertStringTable.sql" />
+    <Build Include="Security\tSQLt.sql" />
+    <PostDeploy Include="Script.PostDeployment1.sql" />
+  </ItemGroup>
+</Project>
