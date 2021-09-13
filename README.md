@@ -8,7 +8,8 @@ The general project structure we recommend consists of one or more "code" projec
 
 |Example Project Structure|
 |-|
-|![Example Project Structure](https://user-images.githubusercontent.com/298017/133068000-2d562db1-0a1f-495f-9581-31e557e37f47.png)|
+|![Example Project Structure](https://user-images.githubusercontent.com/298017/133071915-2b530232-8387-44d6-a219-b7fa7f4e6832.png)
+|
 ||
 
 It is also recommended to change the "debug" database to a (developer-edition) SQL Server instance instead of the default localdb included with VS.
@@ -26,4 +27,4 @@ To create the test class (the schema) for tests to live in, VS is incompatible w
 
 `CREATE SCHEMA [SomeRandomTests] AUTHORIZATION [tSQLt.TestClass];`
 
-Following standard VS recommendations, you can then create your tests in independent files.
+Following standard VS recommendations, you can then create your tests in independent files. It might be a good idea, too, to place all objects that belong to a test class in a folder under the project as show in the screenshot above.
