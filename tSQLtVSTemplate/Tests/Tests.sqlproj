@@ -57,11 +57,11 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="SomeRandomTests" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Test1.sql" />
-    <Build Include="SomeRandomTests.sql" />
-    <Build Include="Test2.sql" />
+    <Build Include="SomeRandomTests\SomeRandomTests.sql" />
+    <Build Include="SomeRandomTests\Test1.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="..\tSQLt2019.dacpac">
@@ -78,6 +78,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="RuntSQLt.sql" />
+    <None Include="tSQLt.Run.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="SomeRandomTests\Test2.sql" />
   </ItemGroup>
 </Project>
