@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[TableToText]  @txt [sys].[nvarchar](MAX) = NULL  OUT,@TableName [sys].[nvarchar](MAX) = NULL ,@OrderBy [sys].[nvarchar](MAX) = NULL ,@PrintOnlyColumnNameAliasList [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

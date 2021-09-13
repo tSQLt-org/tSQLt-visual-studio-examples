@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[DropClass]  @ClassName [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

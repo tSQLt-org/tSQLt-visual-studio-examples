@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[LogCapturedOutput]  @text [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

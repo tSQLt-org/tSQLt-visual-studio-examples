@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[SetTestResultFormatter]  @Formatter [sys].[nvarchar](4000) = NULL  AS BEGIN  RETURN; END;

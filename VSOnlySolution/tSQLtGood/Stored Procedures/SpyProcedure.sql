@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[SpyProcedure]  @ProcedureName [sys].[nvarchar](MAX) = NULL ,@CommandToExecute [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

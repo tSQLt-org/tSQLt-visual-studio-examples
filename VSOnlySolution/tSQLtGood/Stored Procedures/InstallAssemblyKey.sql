@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[InstallAssemblyKey]  AS BEGIN  RETURN; END;

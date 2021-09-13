@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[DefaultResultFormatter]  AS BEGIN  RETURN; END;

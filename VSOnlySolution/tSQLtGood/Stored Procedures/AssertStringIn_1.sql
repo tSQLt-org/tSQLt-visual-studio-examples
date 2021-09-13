@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[AssertStringIn]  @Expected [tSQLt].[AssertStringTable] READONLY,@Actual [sys].[nvarchar](MAX) = NULL ,@Message [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

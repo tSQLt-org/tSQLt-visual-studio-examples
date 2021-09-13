@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[PrepareServer]  AS BEGIN  RETURN; END;

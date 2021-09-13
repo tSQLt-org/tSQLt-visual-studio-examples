@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[NewTestClass]  @ClassName [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

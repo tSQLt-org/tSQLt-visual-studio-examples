@@ -1,1 +1,0 @@
-﻿CREATE FUNCTION [tSQLt].[FriendlySQLServerVersion](@ProductVersion [sys].[nvarchar](128)) RETURNS TABLE AS RETURN SELECT TOP(0) CAST(NULL AS [sys].[nvarchar](128)) AS [ProductVersion],CAST(NULL AS [sys].[varchar](6)) AS [FriendlyVersion];

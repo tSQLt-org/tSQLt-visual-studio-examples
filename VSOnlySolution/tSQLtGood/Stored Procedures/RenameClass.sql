@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[RenameClass]  @SchemaName [sys].[nvarchar](MAX) = NULL ,@NewSchemaName [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

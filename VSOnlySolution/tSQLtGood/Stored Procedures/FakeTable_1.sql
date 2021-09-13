@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[FakeTable]  @TableName [sys].[nvarchar](MAX) = NULL ,@SchemaName [sys].[nvarchar](MAX) = NULL ,@Identity [sys].[bit] = NULL ,@ComputedColumns [sys].[bit] = NULL ,@Defaults [sys].[bit] = NULL  AS BEGIN  RETURN; END;

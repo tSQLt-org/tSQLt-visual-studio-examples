@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[InstallExternalAccessKey]  AS BEGIN  RETURN; END;

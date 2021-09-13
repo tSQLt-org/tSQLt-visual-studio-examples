@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[ResultSetFilter]  @ResultsetNo [sys].[int] = NULL ,@Command [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

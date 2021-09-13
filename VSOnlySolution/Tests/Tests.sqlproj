@@ -77,4 +77,7 @@
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="RuntSQLt.sql" />
+  </ItemGroup>
 </Project>

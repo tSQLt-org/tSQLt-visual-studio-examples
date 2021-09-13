@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[Uninstall]  AS BEGIN  RETURN; END;

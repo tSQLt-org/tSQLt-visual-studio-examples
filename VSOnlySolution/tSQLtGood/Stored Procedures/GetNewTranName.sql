@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[GetNewTranName]  @TranName [sys].[char](32) = NULL  OUT AS BEGIN  RETURN; END;

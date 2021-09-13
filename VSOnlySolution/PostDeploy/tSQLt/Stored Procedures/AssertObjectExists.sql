@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[AssertObjectExists]  @ObjectName [sys].[nvarchar](MAX) = NULL ,@Message [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

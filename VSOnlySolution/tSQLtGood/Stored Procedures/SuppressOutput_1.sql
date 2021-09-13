@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[SuppressOutput]  @command [sys].[nvarchar](MAX) = NULL  AS BEGIN  RETURN; END;

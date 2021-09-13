@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[StubRecord]  @SnTableName [sys].[nvarchar](MAX) = NULL ,@BintObjId [sys].[bigint] = NULL  AS BEGIN  RETURN; END;

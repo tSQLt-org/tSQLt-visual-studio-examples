@@ -1,1 +1,0 @@
-﻿CREATE PROCEDURE [tSQLt].[RemoveObjectIfExists]  @ObjectName [sys].[nvarchar](MAX) = NULL ,@NewName [sys].[nvarchar](MAX) = NULL  OUT AS BEGIN  RETURN; END;
