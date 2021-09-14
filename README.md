@@ -15,7 +15,7 @@ The "test" project database references must be configured to use "Same database"
 
 |Add Database Reference|
 |-|
-|![Add Database Reference Dialog] ADDSCREENSHOTHEREPLEASE|
+|![Add Database Reference Dialog](https://user-images.githubusercontent.com/298017/133233973-62c2d27c-8343-41b8-8b10-d5d75040a1a7.png)|
 ||
 
 It is also recommended to change the "debug" database to a (developer-edition) SQL Server instance instead of the default localdb included with VS.
