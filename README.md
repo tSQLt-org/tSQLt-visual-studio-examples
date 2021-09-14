@@ -1,14 +1,21 @@
 # tSQLt-visual-studio-examples
-Example Visual Studio solutions and database projects for using tSQLt
+Example solution with database projects for using tSQLt in Visual Studio 2019
 
 ## Solution Structure
-The simplest way to use tSQLt in a VS Database Project is to get a tSQLt DacPac and include it as a database reference in your project.
+The simplest way to use tSQLt in a VS Database Project is to get a tSQLt DACPAC (Data-tier Application) and include it as a database reference in your project.
 
-The general project structure we recommend consists of one or more "code" projects and an equal number of "test" projects in your solution. Each test project needs to have a database reference to its code project (and other code prjects as needed).
+The general project structure we recommend consists of one or more "code" projects and an equal number of "test" projects in your solution. Each test project needs to have a database reference to its code project (and other code projects as needed),as well as, a database reference to the tSQLt DACPAC.
 
 |Example Project Structure|
 |-|
 |![Example Project Structure](https://user-images.githubusercontent.com/298017/133071915-2b530232-8387-44d6-a219-b7fa7f4e6832.png)|
+||
+
+The "test" project database references must be configured to use "Same database" for their "Database Location".
+
+|Add Database Reference|
+|-|
+|![Add Database Reference Dialog] ADDSCREENSHOTHEREPLEASE|
 ||
 
 It is also recommended to change the "debug" database to a (developer-edition) SQL Server instance instead of the default localdb included with VS.
