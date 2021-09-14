@@ -33,4 +33,4 @@ The default method of calling `tSQLt.NewTestClass` to create a tSQLt test class 
 
 `CREATE SCHEMA [SomeRandomTests] AUTHORIZATION [tSQLt.TestClass];`
 
-Following standard VS recommendations, you can then create your tests in independent files. It might be a good idea, too, to place all objects that belong to a test class in a folder under the project as show in the screenshot at the top.
+Following standard VS recommendations, you can then create your tests in independent files. For maintainability it is a good idea to place all objects that belong to a test class in a folder within the project as show in the screenshot at the top.
