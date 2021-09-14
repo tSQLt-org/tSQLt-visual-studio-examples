@@ -18,9 +18,9 @@ The "test" project database references must be configured to use "Same database"
 |![Add Database Reference Dialog](https://user-images.githubusercontent.com/298017/133233973-62c2d27c-8343-41b8-8b10-d5d75040a1a7.png)|
 ||
 
-It is also recommended to change the "debug" database to a (developer-edition) SQL Server instance instead of the default localdb included with VS.
+After setting the project database references, you need to change the "debug" database to point to a (developer-edition) SQL Server instance instead of the default localdb included with VS.
 
-Finally, we recommend to set "always re-create database" to true, as it generally increases deployment speed. (Do not do this on shared development instances! But then, we recommend you do not use them in general.)
+Finally, we recommend to set "always re-create database" to true, as it generally increases deployment speed. Do not do this on shared development instances!
 
 |The Project's Debug Properties|
 |-|
@@ -29,8 +29,8 @@ Finally, we recommend to set "always re-create database" to true, as it generall
 
 ## Files
 
-To create the test class (the schema) for tests to live in, VS is incompatible with the default call to `tSQLt.NewTestClass`. To get around that we created an alternative way to instantiate a new test class: 
+The default method of calling `tSQLt.NewTestClass` to create a tSQLt test class (the schema to organize your unit tests) does not work in Visual Studio database projects. To work around this issue, we created an alternative: 
 
 `CREATE SCHEMA [SomeRandomTests] AUTHORIZATION [tSQLt.TestClass];`
 
-Following standard VS recommendations, you can then create your tests in independent files. It might be a good idea, too, to place all objects that belong to a test class in a folder under the project as show in the screenshot above.
+Following standard VS recommendations, you can then create your tests in independent files. It might be a good idea, too, to place all objects that belong to a test class in a folder under the project as show in the screenshot at the top.
