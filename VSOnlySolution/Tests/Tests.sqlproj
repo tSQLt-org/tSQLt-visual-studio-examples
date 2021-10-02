@@ -59,11 +59,6 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Test1.sql" />
-    <Build Include="SomeRandomTests.sql" />
-    <Build Include="Test2.sql" />
-  </ItemGroup>
-  <ItemGroup>
     <ArtifactReference Include="..\tSQLt2019.dacpac">
       <HintPath>..\tSQLt2019.dacpac</HintPath>
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
@@ -78,6 +73,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="RuntSQLt.sql" />
+    <None Include="Run_tSQLt.sql" />
   </ItemGroup>
 </Project>
