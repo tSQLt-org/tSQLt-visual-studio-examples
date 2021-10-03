@@ -1,4 +1,4 @@
 ﻿EXEC tSQLt.RunAll;
 /*
-EXEC tSQLt.Run 'SomeRandomTests';
+EXEC tSQLt.Run 'dbo_ExampleProcedureTests';
 --*/
