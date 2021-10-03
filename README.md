@@ -30,10 +30,10 @@ Please see the tSQLt-visual-studio-examples
 1. The Thing to Test is “MyModule”
 1. Create a schema file and “AUTHORIZATION [tSQLt.TestClass]” with a filename similar to  “MySchema_MyModuleTests.sql”
 1. Write all tests for “MyModule” inside the “MySchema_MyModuleTests.sql” file separated by “GO”s.
-  1. Why? Because if you want to change the name of the test in the future, you need only change it in this one place. Otherwise, if you have each test in its own file, you have to make three critical changes: 1) The name of the file 2) The revision history of this file in git 3) The name of the test within/in/inside the file.
+   1. Why? Because if you want to change the name of the test in the future, you need only change it in this one place. Otherwise, if you have each test in its own file, you have to make three critical changes: 1) The name of the file 2) The revision history of this file in git 3) The name of the test within/in/inside the file.
 1. Update the Debug settings for all projects with the Solution:
-  1. Make sure that they deploy to a real but UNSHARED AND NOT PRODUCTION server. (Project Name → Properties → Debug → Target Connection String → Edit)
-  1. “Always re-create database” is selected. (Project Name → Properties → Debug → Deployment Options → Check “Always re-create database”)
+   1. Make sure that they deploy to a real but UNSHARED AND NOT PRODUCTION server. (Project Name → Properties → Debug → Target Connection String → Edit)
+   1. “Always re-create database” is selected. (Project Name → Properties → Debug → Deployment Options → Check “Always re-create database”)
 
 
 Open “Run_tSQLt.sql” (make sure you’re connected to the database specified for your deploy above) and click “Execute” or “Ctrl+Shift+E”. You can also highlight the third line in the file, the one that starts with EXEC tSQLt.Run, and click Execute to run a single test class.
