@@ -59,7 +59,7 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="ARandomTable.sql" />
-    <Build Include="ARandomProc.sql" />
+    <Build Include="dbo.ExampleTable.sql" />
+    <Build Include="dbo.ExampleProcedure.sql" />
   </ItemGroup>
 </Project>

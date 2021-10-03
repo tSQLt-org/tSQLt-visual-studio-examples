@@ -57,17 +57,7 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="SomeRandomTests" />
-  </ItemGroup>
-  <ItemGroup>
-    <Build Include="SomeRandomTests\SomeRandomTests.sql" />
-    <Build Include="SomeRandomTests\Test1.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <ArtifactReference Include="..\tSQLt2019.dacpac">
-      <HintPath>..\tSQLt2019.dacpac</HintPath>
-      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
-    </ArtifactReference>
+    <Folder Include="dbo_ExampleProcedureTests" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Code\Code.sqlproj">
@@ -78,9 +68,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="tSQLt.Run.sql" />
+    <None Include="Run_tSQLt.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="SomeRandomTests\Test2.sql" />
+    <ArtifactReference Include="references\tSQLt.2019.dacpac">
+      <HintPath>references\tSQLt.2019.dacpac</HintPath>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+    </ArtifactReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo_ExampleProcedureTests\dbo_ExampleProcedureTests.sql" />
   </ItemGroup>
 </Project>
