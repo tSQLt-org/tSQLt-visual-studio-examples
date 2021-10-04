@@ -11,8 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-#  SPAWNDATAIMAGE: "mssql-empty:v2019"
-  SPAWNDATAIMAGE: "mssql-empty:v2022"
+  SPAWNDATAIMAGE: "mssql-empty:v2019"
   TARGETDATABASE: "tSQLtVSTemplate"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
