@@ -27,6 +27,7 @@ jobs:
           Write-Host "Downloading and installing dbatools..."
           Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
           Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+          $ProgressPreference = "SilentlyContinue"
           Install-Module dbatools 
           
 #-Confirm:$False -Force
@@ -77,6 +78,20 @@ jobs:
           Write-Host "";
 
           $DS = Invoke-Sqlcmd -ConnectionTimeout 600 -Query "SELECT SUSER_NAME() U,SYSDATETIME() T,@@VERSION V;" -ServerInstance "${{ steps.create-data-container.outputs.containerFQDN }}" -Username "${{ steps.create-data-container.outputs.containerUser }}" -Password "${{ steps.create-data-container.outputs.containerPassword }}" -As DataSet
+          $DS.Tables[0].Rows | %{ echo "{ $($_['U']), $($_['T']), $($_['V']) }" };
+
+          Write-Host "";
+          Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
+
+      - name: Print SQL Server Version Info (dbatools)
+        shell: pwsh
+        run: |
+          Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
+          Write-Host "";
+          $secStringPassword = ConvertTo-SecureString "${{ steps.create-data-container.outputs.containerPassword }}" -AsPlainText -Force
+          [pscredential]$credObject = New-Object System.Management.Automation.PSCredential ("${{ steps.create-data-container.outputs.containerUser }}", $secStringPassword)
+
+          $DS = Invoke-dbaquery -Query "SELECT SUSER_NAME() U,SYSDATETIME() T,@@VERSION V;" -SqlInstance "${{ steps.create-data-container.outputs.containerFQDN }}"  -SqlCredential $credObject  -As DataSet
           $DS.Tables[0].Rows | %{ echo "{ $($_['U']), $($_['T']), $($_['V']) }" };
 
           Write-Host "";
