@@ -86,8 +86,8 @@ jobs:
         shell: pwsh
         run: |
           msbuild -version
-          $targetConnectionString = "Data Source="+$containerFQDN+";User ID="+$containerUser+";Password="+$containerPassword+";Pooling=False;Integrated Security=false";
-          msbuild.exe .\tSQLtVSTemplate\tSQLtVSTemplate.sln -p:Configuration=Debug -p:TargetConnectionString="$targetConnectionString" -p:TargetDatabase="$targetDatabase" -t:Build -t:Deploy
+          $targetConnectionString = "Data Source="+$env:containerFQDN+";User ID="+$env:containerUser+";Password="+$env:containerPassword+";Pooling=False;Integrated Security=false";
+          msbuild.exe .\tSQLtVSTemplate\tSQLtVSTemplate.sln -p:Configuration=Debug -p:TargetConnectionString="$targetConnectionString" -p:TargetDatabase="$env:targetDatabase" -t:Build -t:Deploy
         env:
           containerFQDN: ${{ needs.create_ci_mssql_instance.outputs.containerFQDN }}
           containerUser: ${{ needs.create_ci_mssql_instance.outputs.containerUser }}
