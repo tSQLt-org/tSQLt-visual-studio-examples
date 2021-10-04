@@ -10,10 +10,67 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  SPAWNDATAIMAGE: "mssql-empty:v2019"
+  TARGETDATABASE: "tSQLtVSTemplate"
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+
+  create_ci_mssql_instance:
+    runs-on: windows-latest
+
+    steps:
+      - name: Install spawnctl.exe
+        shell: pwsh
+        run: |
+          Write-Host "Downloading and installing spawnctl..."
+          Invoke-WebRequest -Uri "https://run.spawn.cc/spawnctl.exe" -UseBasicParsing -OutFile "${{ github.workspace }}\spawnctl.exe"
+          & "${{ github.workspace }}\spawnctl.exe" version
+
+      - name: Create Data Container
+        id: create-data-container
+        shell: pwsh
+        run: |
+          & "${{ github.workspace }}\spawnctl.exe" get data-images
+          echo "Creating 'tSQLtOnLinux' Spawn data container from image '$spawnDataImage'";
+          $containerName= & "${{ github.workspace }}\spawnctl.exe" create data-container --image $spawnDataImage --lifetime 10m -q
+          $containerJSON= & "${{ github.workspace }}\spawnctl.exe" get data-container $containerName -o json
+
+          $containerInfo = ConvertFrom-JSON -inputObject $containerJSON;
+          $containerFQDN=$containerInfo.host+", "+$containerInfo.port;
+          $containerUser=$containerInfo.user;
+          $containerPassword=$containerInfo.password;
+
+          echo "Successfully created Spawn data container '$containerName'"
+          Write-Host ('::set-output name=containerFQDN::'+$containerFQDN);
+          Write-Host ('::set-output name=containerUser::'+$containerUser);
+          Write-Host ('::set-output name=containerPassword::'+$containerPassword);
+        env:
+          SPAWNCTL_ACCESS_TOKEN: ${{ secrets.SPAWNCTL_ACCESS_TOKEN }}
+          spawnDataImage: ${{ env.SPAWNDATAIMAGE }}
+
+      - name: Print SQL Server Version Info
+        shell: pwsh
+        run: |
+          Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
+          Write-Host "";
+
+          $DS = Invoke-Sqlcmd -ConnectionTimeout 600 -Query "SELECT SUSER_NAME() U,SYSDATETIME() T,@@VERSION V;" -ServerInstance "${{ steps.create-data-container.outputs.containerFQDN }}" -Username "${{ steps.create-data-container.outputs.containerUser }}" -Password "${{ steps.create-data-container.outputs.containerPassword }}" -As DataSet
+          $DS.Tables[0].Rows | %{ echo "{ $($_['U']), $($_['T']), $($_['V']) }" };
+
+          Write-Host "";
+          Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
+
+    outputs:
+      containerFQDN: ${{ steps.create-data-container.outputs.containerFQDN }}
+      containerUser: ${{ steps.create-data-container.outputs.containerUser }}
+      containerPassword: ${{ steps.create-data-container.outputs.containerPassword }} 
+
+
   # This workflow contains a single job called "build"
   build:
+    needs: [create_ci_mssql_instance]
     # The type of runner that the job will run on
     runs-on: windows-latest
 
@@ -26,8 +83,16 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.3
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Build database solution
         shell: pwsh
         run: |
           msbuild -version
+          $targetConnectionString = "Data Source="+$containerFQDN+";User ID="+$containerUser+";Password="+$containerPassword+";Pooling=False;Integrated Security=false";
+          msbuild.exe .\tSQLtVSTemplate\tSQLtVSTemplate.sln -p:Configuration=Debug -p:TargetConnectionString="$targetConnectionString" -p:TargetDatabase="$targetDatabase" -t:Build -t:Deploy
+        env:
+          containerFQDN: ${{ needs.create_ci_mssql_instance.outputs.containerFQDN }}
+          containerUser: ${{ needs.create_ci_mssql_instance.outputs.containerUser }}
+          containerPassword: ${{ needs.create_ci_mssql_instance.outputs.containerPassword }}
+          targetDatabase: ${{ env.TARGETDATABASE }}
+
 
