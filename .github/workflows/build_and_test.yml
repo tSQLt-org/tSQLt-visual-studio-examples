@@ -11,7 +11,8 @@ on:
   workflow_dispatch:
 
 env:
-  SPAWNDATAIMAGE: "mssql-empty:v2019"
+#  SPAWNDATAIMAGE: "mssql-empty:v2019"
+  SPAWNDATAIMAGE: "mssql-empty:v2022"
   TARGETDATABASE: "tSQLtVSTemplate"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -35,6 +36,10 @@ jobs:
           echo "Creating 'tSQLtOnLinux' Spawn data container from image '$env:spawnDataImage'";
           $containerName= & "${{ github.workspace }}\spawnctl.exe" create data-container --image $env:spawnDataImage --lifetime 10m -q
           $containerJSON= & "${{ github.workspace }}\spawnctl.exe" get data-container $containerName -o json
+          if (!$containerJSON) {
+              Write-Error "Error creating data container.";
+              return;
+          }
 
           $containerInfo = ConvertFrom-JSON -inputObject $containerJSON;
           $containerFQDN=$containerInfo.host+", "+$containerInfo.port;
