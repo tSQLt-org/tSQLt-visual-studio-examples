@@ -21,16 +21,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Install DBA Tools
-        shell: pwsh
-        run: |
-          Write-Host "Downloading and installing dbatools..."
-          Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
-          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-          $ProgressPreference = "SilentlyContinue"
-          Install-Module dbatools 
-          
-#-Confirm:$False -Force
 
       - name: Install spawnctl.exe
         shell: pwsh
@@ -83,20 +73,6 @@ jobs:
           Write-Host "";
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
 
-      - name: Print SQL Server Version Info (dbatools)
-        shell: pwsh
-        run: |
-          Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
-          Write-Host "";
-          $secStringPassword = ConvertTo-SecureString "${{ steps.create-data-container.outputs.containerPassword }}" -AsPlainText -Force
-          [pscredential]$credObject = New-Object System.Management.Automation.PSCredential ("${{ steps.create-data-container.outputs.containerUser }}", $secStringPassword)
-
-          $DS = Invoke-dbaquery -Query "SELECT SUSER_NAME() U,SYSDATETIME() T,@@VERSION V;" -SqlInstance ('${{ steps.create-data-container.outputs.containerFQDN }}')  -SqlCredential $credObject  -As DataSet
-          $DS.Tables[0].Rows | %{ echo "{ $($_['U']), $($_['T']), $($_['V']) }" };
-
-          Write-Host "";
-          Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
-
     outputs:
       containerFQDN: ${{ steps.create-data-container.outputs.containerFQDN }}
       containerUser: ${{ steps.create-data-container.outputs.containerUser }}
@@ -109,6 +85,12 @@ jobs:
     # The type of runner that the job will run on
     runs-on: windows-latest
 
+    env:
+      containerFQDN: ${{ needs.create_ci_mssql_instance.outputs.containerFQDN }}
+      containerUser: ${{ needs.create_ci_mssql_instance.outputs.containerUser }}
+      containerPassword: ${{ needs.create_ci_mssql_instance.outputs.containerPassword }}
+      targetDatabase: ${{ env.TARGETDATABASE }}
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -116,6 +98,11 @@ jobs:
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.3
+
+      - name: Prepare SQL Server Instance
+        shell: pwsh
+        run: |
+          Invoke-Sqlcmd -InputFile "./tSQLtVSTemplate/Tests/PrepareServer.sql" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword
 
       # Runs a set of commands using the runners shell
       - name: Build database solution
@@ -127,11 +114,6 @@ jobs:
 
           $targetConnectionString = "Data Source="+$env:containerFQDN+";User ID="+$env:containerUser+";Password="+$env:containerPassword+";Pooling=False;Integrated Security=false";
           msbuild.exe .\tSQLtVSTemplate\tSQLtVSTemplate.sln -p:Configuration=Debug -p:TargetConnectionString="$targetConnectionString" -p:TargetDatabase="$env:targetDatabase" -t:Build -t:Deploy
-        env:
-          containerFQDN: ${{ needs.create_ci_mssql_instance.outputs.containerFQDN }}
-          containerUser: ${{ needs.create_ci_mssql_instance.outputs.containerUser }}
-          containerPassword: ${{ needs.create_ci_mssql_instance.outputs.containerPassword }}
-          targetDatabase: ${{ env.TARGETDATABASE }}
 
 
   validate_build:
