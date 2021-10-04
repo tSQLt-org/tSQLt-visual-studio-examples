@@ -34,15 +34,17 @@ jobs:
         shell: pwsh
         run: |
           echo "Creating 'tSQLtOnLinux' Spawn data container from image '$env:spawnDataImage'";
-          $containerName= & "${{ github.workspace }}\spawnctl.exe" create data-container --image $env:spawnDataImage --lifetime 10m -q
-          $containerJSON= & "${{ github.workspace }}\spawnctl.exe" get data-container $containerName -o json
-          $containerJSON;
+          $containerName= & "${{ github.workspace }}\spawnctl.exe" create data-container --image $env:spawnDataImage --lifetime 10m -q -o json
+          $containerName;
 
-
-          if (!($containerJSON | ConvertFrom-Json)) {
+          if (!($containerName | ConvertFrom-Json)) {
               Write-Error "Error creating data container.";
               return;
           }
+
+          $containerJSON= & "${{ github.workspace }}\spawnctl.exe" get data-container $containerName -o json
+          $containerJSON;
+
 
           $containerInfo = ConvertFrom-JSON -inputObject $containerJSON;
           $containerFQDN=$containerInfo.host+", "+$containerInfo.port;
