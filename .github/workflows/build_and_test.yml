@@ -32,9 +32,8 @@ jobs:
         id: create-data-container
         shell: pwsh
         run: |
-          & "${{ github.workspace }}\spawnctl.exe" get data-images
-          echo "Creating 'tSQLtOnLinux' Spawn data container from image '$spawnDataImage'";
-          $containerName= & "${{ github.workspace }}\spawnctl.exe" create data-container --image $spawnDataImage --lifetime 10m -q
+          echo "Creating 'tSQLtOnLinux' Spawn data container from image '$env:spawnDataImage'";
+          $containerName= & "${{ github.workspace }}\spawnctl.exe" create data-container --image $env:spawnDataImage --lifetime 10m -q
           $containerJSON= & "${{ github.workspace }}\spawnctl.exe" get data-container $containerName -o json
 
           $containerInfo = ConvertFrom-JSON -inputObject $containerJSON;
@@ -96,3 +95,8 @@ jobs:
           targetDatabase: ${{ env.TARGETDATABASE }}
 
 
+  validate_build:
+    needs: [build]
+
+    # The type of runner that the job will run on
+    runs-on: windows-latest
