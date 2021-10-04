@@ -34,7 +34,7 @@ jobs:
         shell: pwsh
         run: |
           echo "Creating 'tSQLtOnLinux' Spawn data container from image '$env:spawnDataImage'";
-          $containerName = & "${{ github.workspace }}\spawnctl.exe" create data-container --image $env:spawnDataImage --lifetime 10m -q
+          $containerName = & "${{ github.workspace }}\spawnctl.exe" create data-container --image $env:spawnDataImage --lifetime 15m -q
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
           Write-Host "Container Name: "$containerName;
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
@@ -136,7 +136,20 @@ jobs:
         run: |
           Invoke-Sqlcmd -Query "EXEC tSQLt.SetSummaryError @SummaryError=0;EXEC tSQLt.SetVerbose @Verbose = 1;EXEC tSQLt.RunAll;" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword  -Database "$env:targetDatabase" -OutputSqlErrors $true -AbortOnError -verbose
           $DS = Invoke-Sqlcmd -Query "EXEC tSQLt.XMLResultFormatter;" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword  -Database "$env:targetDatabase" -As DataSet -OutputSqlErrors $true -AbortOnError -verbose
-          $DS.Tables[0].Rows 
-          Invoke-Sqlcmd -Query "EXEC tSQLt.SetSummaryError @SummaryError=1;EXEC tSQLt.DefaultResultFormatter;" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword  -Database "$env:targetDatabase" -As DataSet -OutputSqlErrors $true -AbortOnError -verbose
+          New-Item -Path "." -Name "TestResults" -ItemType "directory"
+          $DS.Tables[0].Item[0]|Out-File "./TestResuts/TestResults.xml";
+
+      - name: archive junit test artifact
+        uses: actions/upload-artifact@v2
+        with:
+          if-no-files-found: error
+          name: TestResuts
+          path: ".\\TestResults\\"
+          retention-days: 90
+
+      - name: Check for Failures
+        shell: pwsh
+        run: |
+          Invoke-Sqlcmd -Query "EXEC tSQLt.SetSummaryError @SummaryError=1;EXEC tSQLt.DefaultResultFormatter;" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword  -Database "$env:targetDatabase" -OutputSqlErrors $true -AbortOnError -verbose
 
           
