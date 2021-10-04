@@ -34,7 +34,7 @@ jobs:
         shell: pwsh
         run: |
           echo "Creating 'tSQLtOnLinux' Spawn data container from image '$env:spawnDataImage'";
-          $containerName= & "${{ github.workspace }}\spawnctl.exe" create data-container --image $env:spawnDataImage --lifetime 10m -q -o json
+          $containerName = & "${{ github.workspace }}\spawnctl.exe" create data-container --image $env:spawnDataImage --lifetime 10m -q
           $containerName;
 
           if (!($containerName | ConvertFrom-Json)) {
