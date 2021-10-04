@@ -36,10 +36,10 @@ jobs:
           echo "Creating 'tSQLtOnLinux' Spawn data container from image '$env:spawnDataImage'";
           $containerName = & "${{ github.workspace }}\spawnctl.exe" create data-container --image $env:spawnDataImage --lifetime 10m -q
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
-          Write-Host "Container Name: "+ $containerName;
+          Write-Host "Container Name: "$containerName;
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
 
-          if (!($containerName | ConvertFrom-Json)) {
+          if ([string]::IsNullOrEmpty($containerName)) {
               Write-Error "Error creating data container.";
               return;
           }
