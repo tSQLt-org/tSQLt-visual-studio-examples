@@ -89,7 +89,6 @@ jobs:
       containerFQDN: ${{ needs.create_ci_mssql_instance.outputs.containerFQDN }}
       containerUser: ${{ needs.create_ci_mssql_instance.outputs.containerUser }}
       containerPassword: ${{ needs.create_ci_mssql_instance.outputs.containerPassword }}
-      targetDatabase: ${{ env.TARGETDATABASE }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
