@@ -21,6 +21,16 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - name: Install DBA Tools
+        shell: pwsh
+        run: |
+          Write-Host "Downloading and installing dbatools..."
+          Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+          Install-Module dbatools 
+          
+#-Confirm:$False -Force
+
       - name: Install spawnctl.exe
         shell: pwsh
         run: |
