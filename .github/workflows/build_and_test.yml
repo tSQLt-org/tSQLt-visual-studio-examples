@@ -109,8 +109,6 @@ jobs:
         run: |
           msbuild -version
 
-          #dbatools? maybe we can install here, and then use Invoke-DbaQuery?
-
           $targetConnectionString = "Data Source="+$env:containerFQDN+";User ID="+$env:containerUser+";Password="+$env:containerPassword+";Pooling=False;Integrated Security=false";
           msbuild.exe .\tSQLtVSTemplate\tSQLtVSTemplate.sln -p:Configuration=Debug -p:TargetConnectionString="$targetConnectionString" -p:TargetDatabase="$env:targetDatabase" -t:Build -t:Deploy
 

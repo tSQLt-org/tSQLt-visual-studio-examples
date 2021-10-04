@@ -59,3 +59,9 @@ BEGIN
   EXEC tSQLt.AssertEqualsTable @Expected = '#Expected', @Actual = '#Actual';
 END;
 GO
+CREATE PROCEDURE [dbo_ExampleProcedureTests].[test failure]
+AS
+BEGIN
+  EXEC tSQLt.Fail 'This test, you guessed correctly, is failing...'
+END;
+GO
