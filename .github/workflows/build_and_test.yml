@@ -126,3 +126,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Run Tests
+        shell: pwsh
+        run: |
+          Invoke-Sqlcmd -Query "EXEC tSQLt.SetSummaryError @SummaryError=0;EXEC tSQLt.SetVerbose @Verbose = 1;EXEC tSQLt.RunAll;" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword
+          $DS = Invoke-Sqlcmd -Query "EXEC tSQLt.XMLResultFormatter;" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword -As DataSet
+          $DS.Tables[0].Rows 
+
+          
