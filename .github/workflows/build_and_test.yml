@@ -47,8 +47,6 @@ jobs:
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
 
           Write-Host ('::set-output name=containerFQDN::'+$containerFQDN);
-          Write-Host ('::set-output name=containerUser::'+$containerUser);
-          Write-Host ('::set-output name=containerPassword::'+$containerPassword);
         env:
           containerName: ${{ steps.create-container.outputs.dataContainerName }}
           containerHost: ${{ steps.create-container.outputs.dataContainerHost }}
@@ -59,8 +57,8 @@ jobs:
 
     outputs:
       containerFQDN: ${{ steps.create-container-vars.outputs.containerFQDN }}
-      containerUser: ${{ steps.create-container-vars.outputs.containerUser }}
-      containerPassword: ${{ steps.create-container-vars.outputs.containerPassword }} 
+      containerUser: ${{ steps.create-container.outputs.dataContainerUsername }}
+      containerPassword: ${{ steps.create-container.outputs.dataContainerPassword }} 
 
 
   # This workflow contains a single job called "build"
