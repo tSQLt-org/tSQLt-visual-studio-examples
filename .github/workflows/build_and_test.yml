@@ -157,7 +157,7 @@ jobs:
           New-Item -Path "." -Name "TestResults" -ItemType "directory"
           $DS.Tables[0].Item(0)|Out-File "./TestResults/TestResults.xml";
 
-      - name: Create Test Results Artifact
+      - name: Upload Test Results Artifact
         uses: actions/upload-artifact@v2
         with:
           if-no-files-found: error
@@ -168,6 +168,11 @@ jobs:
       - name: Check for Failures
         shell: pwsh
         run: |
-          Invoke-Sqlcmd -Query "EXEC tSQLt.SetSummaryError @SummaryError=1;EXEC tSQLt.DefaultResultFormatter;" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword  -Database "$env:targetDatabase" -OutputSqlErrors $true -AbortOnError -verbose
+          $query = "EXEC tSQLt.SetSummaryError @SummaryError=1;EXEC tSQLt.DefaultResultFormatter;";
+
+          Invoke-Sqlcmd -Query $query `
+                        -ServerInstance $env:containerFQDN -Database $env:targetDatabase `
+                        -Username $env:containerUser -Password $env:containerPassword `
+                        -OutputSqlErrors $true -AbortOnError -verbose;
 
           
