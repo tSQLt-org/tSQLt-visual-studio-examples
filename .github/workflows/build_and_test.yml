@@ -24,10 +24,11 @@ jobs:
 
       - name: create data container
         id: create-container
-        uses: red-gate/create-spawn-data-container/@v1
+        uses: red-gate/create-spawn-data-container/@v1.1
         with:
           dataImage: ${{ env.SPAWNDATAIMAGE }}
           lifetime: '15m'
+          useMasking: 'false'
         env:
           SPAWNCTL_ACCESS_TOKEN: ${{ secrets.SPAWNCTL_ACCESS_TOKEN }}
 
