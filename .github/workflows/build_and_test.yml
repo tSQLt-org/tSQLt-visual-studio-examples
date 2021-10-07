@@ -64,14 +64,22 @@ jobs:
       - name: Confirm SQL Server is Up and Listening
         shell: pwsh
         run: |
+          $query = "SELECT SUSER_NAME() U,SYSDATETIME() T,@@VERSION V;";
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
           Write-Host "";
-
-          $DS = Invoke-Sqlcmd -ConnectionTimeout 600 -Query "SELECT SUSER_NAME() U,SYSDATETIME() T,@@VERSION V;" -ServerInstance "${{ steps.create-data-container.outputs.containerFQDN }}" -Username "${{ steps.create-data-container.outputs.containerUser }}" -Password "${{ steps.create-data-container.outputs.containerPassword }}" -As DataSet
+          $DS = Invoke-Sqlcmd -ConnectionTimeout 600 `
+                              -Query $query `
+                              -ServerInstance $env:containerFQDN `
+                              -Username $env:containerUser `
+                              -Password $env:containerPassword `
+                              -As DataSet
           $DS.Tables[0].Rows | %{ echo "{ $($_['U']), $($_['T']), $($_['V']) }" };
-
           Write-Host "";
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
+        env:
+          containerFQDN: ${{ steps.create-data-container.outputs.containerFQDN }}
+          containerUser: ${{ steps.create-data-container.outputs.containerUser }}
+          containerPassword: ${{ steps.create-data-container.outputs.containerPassword }} 
 
     outputs:
       containerFQDN: ${{ steps.create-data-container.outputs.containerFQDN }}
