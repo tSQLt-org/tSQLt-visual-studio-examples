@@ -1,0 +1,153 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build_And_Test
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  SPAWNDATAIMAGE: "mssql-empty:v2019"
+  TARGETDATABASE: "tSQLtVSTemplate"
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  create_ci_mssql_instance:
+    runs-on: windows-latest
+
+    steps:
+
+      - name: Install spawnctl.exe
+        shell: pwsh
+        run: |
+          Write-Host "Downloading and installing spawnctl..."
+          Invoke-WebRequest -Uri "https://run.spawn.cc/spawnctl.exe" -UseBasicParsing -OutFile "${{ github.workspace }}\spawnctl.exe"
+          & "${{ github.workspace }}\spawnctl.exe" version
+
+      - name: Create Data Container
+        id: create-data-container
+        shell: pwsh
+        run: |
+          echo "Creating 'tSQLtOnLinux' Spawn data container from image '$env:spawnDataImage'";
+          $containerName = & "${{ github.workspace }}\spawnctl.exe" create data-container --image $env:spawnDataImage --lifetime 15m -q
+          Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
+          Write-Host "Container Name: "$containerName;
+          Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
+
+          if ([string]::IsNullOrEmpty($containerName)) {
+              Write-Error "Error creating data container.";
+              return;
+          }
+
+          $containerJSON= & "${{ github.workspace }}\spawnctl.exe" get data-container $containerName -o json
+          $containerJSON;
+
+
+          $containerInfo = ConvertFrom-JSON -inputObject $containerJSON;
+          $containerFQDN=$containerInfo.host+", "+$containerInfo.port;
+          $containerUser=$containerInfo.user;
+          $containerPassword=$containerInfo.password;
+
+          echo "Successfully created Spawn data container '$containerName'"
+          Write-Host ('::set-output name=containerFQDN::'+$containerFQDN);
+          Write-Host ('::set-output name=containerUser::'+$containerUser);
+          Write-Host ('::set-output name=containerPassword::'+$containerPassword);
+        env:
+          SPAWNCTL_ACCESS_TOKEN: ${{ secrets.SPAWNCTL_ACCESS_TOKEN }}
+          spawnDataImage: ${{ env.SPAWNDATAIMAGE }}
+
+      - name: Print SQL Server Version Info
+        shell: pwsh
+        run: |
+          Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
+          Write-Host "";
+
+          $DS = Invoke-Sqlcmd -ConnectionTimeout 600 -Query "SELECT SUSER_NAME() U,SYSDATETIME() T,@@VERSION V;" -ServerInstance "${{ steps.create-data-container.outputs.containerFQDN }}" -Username "${{ steps.create-data-container.outputs.containerUser }}" -Password "${{ steps.create-data-container.outputs.containerPassword }}" -As DataSet
+          $DS.Tables[0].Rows | %{ echo "{ $($_['U']), $($_['T']), $($_['V']) }" };
+
+          Write-Host "";
+          Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
+
+    outputs:
+      containerFQDN: ${{ steps.create-data-container.outputs.containerFQDN }}
+      containerUser: ${{ steps.create-data-container.outputs.containerUser }}
+      containerPassword: ${{ steps.create-data-container.outputs.containerPassword }} 
+
+
+  # This workflow contains a single job called "build"
+  build:
+    needs: [create_ci_mssql_instance]
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    env:
+      containerFQDN: ${{ needs.create_ci_mssql_instance.outputs.containerFQDN }}
+      containerUser: ${{ needs.create_ci_mssql_instance.outputs.containerUser }}
+      containerPassword: ${{ needs.create_ci_mssql_instance.outputs.containerPassword }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.3
+
+      - name: Prepare SQL Server Instance
+        shell: pwsh
+        run: |
+          Invoke-Sqlcmd -InputFile "./tSQLtVSTemplate/Tests/references/PrepareServer.sql" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword
+
+      # Runs a set of commands using the runners shell
+      - name: Build database solution
+        shell: pwsh
+        run: |
+          msbuild -version
+
+          $targetConnectionString = "Data Source="+$env:containerFQDN+";User ID="+$env:containerUser+";Password="+$env:containerPassword+";Pooling=False;Integrated Security=false";
+          msbuild.exe .\tSQLtVSTemplate\tSQLtVSTemplate.sln -p:Configuration=Debug -p:TargetConnectionString="$targetConnectionString" -p:TargetDatabase="$env:targetDatabase" -t:Build -t:Deploy
+
+
+  validate_build:
+    needs: [build, create_ci_mssql_instance]
+
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    env:
+      containerFQDN: ${{ needs.create_ci_mssql_instance.outputs.containerFQDN }}
+      containerUser: ${{ needs.create_ci_mssql_instance.outputs.containerUser }}
+      containerPassword: ${{ needs.create_ci_mssql_instance.outputs.containerPassword }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Run Tests
+        shell: pwsh
+        run: |
+          Invoke-Sqlcmd -Query "EXEC tSQLt.SetSummaryError @SummaryError=0;EXEC tSQLt.SetVerbose @Verbose = 1;EXEC tSQLt.RunAll;" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword  -Database "$env:targetDatabase" -OutputSqlErrors $true -AbortOnError -verbose
+          $DS = Invoke-Sqlcmd -Query "EXEC tSQLt.XMLResultFormatter;" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword  -Database "$env:targetDatabase" -As DataSet -OutputSqlErrors $true -AbortOnError -verbose
+          New-Item -Path "." -Name "TestResults" -ItemType "directory"
+          $DS.Tables[0].Item(0)|Out-File "./TestResults/TestResults.xml";
+
+      - name: create test results artifact
+        uses: actions/upload-artifact@v2
+        with:
+          if-no-files-found: error
+          name: TestResults
+          path: ".\\TestResults\\"
+          retention-days: 90
+
+      - name: Check for Failures
+        shell: pwsh
+        run: |
+          Invoke-Sqlcmd -Query "EXEC tSQLt.SetSummaryError @SummaryError=1;EXEC tSQLt.DefaultResultFormatter;" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword  -Database "$env:targetDatabase" -OutputSqlErrors $true -AbortOnError -verbose
+
+          

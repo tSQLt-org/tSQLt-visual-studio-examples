@@ -59,3 +59,10 @@ BEGIN
   EXEC tSQLt.AssertEqualsTable @Expected = '#Expected', @Actual = '#Actual';
 END;
 GO
+--[@tSQLt:SkipTest]('Fails on purpose, so let''s not run it!')
+CREATE PROCEDURE [dbo_ExampleProcedureTests].[test failure]
+AS
+BEGIN
+  EXEC tSQLt.Fail 'This test, you guessed correctly, is failing...'
+END;
+GO
