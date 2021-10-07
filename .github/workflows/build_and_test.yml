@@ -18,6 +18,7 @@ env:
 jobs:
 
   create_ci_mssql_instance:
+    name: Create CI MSSQL Instance
     runs-on: ubuntu-latest
     steps:
 
@@ -64,6 +65,7 @@ jobs:
 
   # This workflow contains a single job called "build"
   build:
+    name: Build Database Solution
     needs: [create_ci_mssql_instance]
     # The type of runner that the job will run on
     runs-on: windows-latest
@@ -87,13 +89,14 @@ jobs:
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
           Write-Host "";
 
-          $DS = Invoke-Sqlcmd -ConnectionTimeout 600 -Query "SELECT SUSER_NAME() U,SYSDATETIME() T,@@VERSION V;" -ServerInstance "$env:containerFQDN" -Username "$env:containerUser" -Password "env:containerPassword" -As DataSet
+          $DS = Invoke-Sqlcmd -ConnectionTimeout 600 -Query "SELECT SUSER_NAME() U,SYSDATETIME() T,@@VERSION V;" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password env:containerPassword -As DataSet
           $DS.Tables[0].Rows | %{ echo "{ $($_['U']), $($_['T']), $($_['V']) }" };
 
           Write-Host "";
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
 
           Invoke-Sqlcmd -InputFile "./tSQLtVSTemplate/Tests/references/PrepareServer.sql" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword
+
 
       # Runs a set of commands using the runners shell
       - name: Build database solution
@@ -106,6 +109,7 @@ jobs:
 
 
   validate_build:
+    name: Validate Database Solution
     needs: [build, create_ci_mssql_instance]
 
     # The type of runner that the job will run on
