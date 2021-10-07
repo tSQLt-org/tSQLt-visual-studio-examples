@@ -18,8 +18,7 @@ env:
 jobs:
 
   create_ci_mssql_instance:
-    runs-on: windows-latest
-
+    runs-on: ubuntu-latest
     steps:
 
       - name: create data container
