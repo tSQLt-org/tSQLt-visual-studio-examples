@@ -18,6 +18,7 @@ env:
 jobs:
 
   create_ci_mssql_instance:
+    name: Create CI SQL Server Instance
     runs-on: windows-latest
 
     steps:
@@ -29,7 +30,7 @@ jobs:
           Invoke-WebRequest -Uri "https://run.spawn.cc/spawnctl.exe" -UseBasicParsing -OutFile "${{ github.workspace }}\spawnctl.exe"
           & "${{ github.workspace }}\spawnctl.exe" version
 
-      - name: Create Data Container
+      - name: Create SQL Server Data Container
         id: create-data-container
         shell: pwsh
         run: |
@@ -61,7 +62,7 @@ jobs:
           SPAWNCTL_ACCESS_TOKEN: ${{ secrets.SPAWNCTL_ACCESS_TOKEN }}
           spawnDataImage: ${{ env.SPAWNDATAIMAGE }}
 
-      - name: Print SQL Server Version Info
+      - name: Confirm SQL Server is Up and Listening
         shell: pwsh
         run: |
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
@@ -81,6 +82,7 @@ jobs:
 
   # This workflow contains a single job called "build"
   build:
+    name: Build Database Solution
     needs: [create_ci_mssql_instance]
     # The type of runner that the job will run on
     runs-on: windows-latest
@@ -104,7 +106,7 @@ jobs:
           Invoke-Sqlcmd -InputFile "./tSQLtVSTemplate/Tests/references/PrepareServer.sql" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword
 
       # Runs a set of commands using the runners shell
-      - name: Build database solution
+      - name: Build Database Solution
         shell: pwsh
         run: |
           msbuild -version
@@ -114,6 +116,7 @@ jobs:
 
 
   validate_build:
+    name: Validate Database Solution
     needs: [build, create_ci_mssql_instance]
 
     # The type of runner that the job will run on
@@ -137,7 +140,7 @@ jobs:
           New-Item -Path "." -Name "TestResults" -ItemType "directory"
           $DS.Tables[0].Item(0)|Out-File "./TestResults/TestResults.xml";
 
-      - name: create test results artifact
+      - name: Create Test Results Artifact
         uses: actions/upload-artifact@v2
         with:
           if-no-files-found: error
