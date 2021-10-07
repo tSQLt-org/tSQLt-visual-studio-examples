@@ -85,6 +85,18 @@ jobs:
         shell: pwsh
         run: |
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
+          Write-Host "Container FQDN: "$env:containerFQDN;
+          Write-Host "Container FQDN Length: "($env:containerFQDN).length;
+          Write-Host "Container Username: "$env:containerPassword;
+          Write-Host "Container Password: "($env:containerPassword).length
+          Write-Host "Container Username: "$env:containerUser;
+          Write-Host "Container Password: "($env:containerUser).length
+
+          Write-Host "Container FQDN: ${{ env.containerFQDN }}";
+          Write-Host "Container Username: ${{ env.containerUser }}";
+          Write-Host "Container Password: ${{ env.containerPassword }}";
+
+          Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
           Write-Host "";
 
           $DS = Invoke-Sqlcmd -ConnectionTimeout 600 -Query "SELECT SUSER_NAME() U,SYSDATETIME() T,@@VERSION V;" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password env:containerPassword -As DataSet
