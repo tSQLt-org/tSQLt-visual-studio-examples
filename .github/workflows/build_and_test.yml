@@ -108,7 +108,7 @@ jobs:
           msbuild -version
 
           $targetConnectionString = "Data Source="+$env:containerFQDN+";User ID="+$env:containerUser+";Password="+$env:containerPassword+";Pooling=False;Integrated Security=false";
-          msbuild.exe .\tSQLtVSTemplate\tSQLtVSTemplate.sln -p:Configuration=Debug -p:TargetConnectionString="$targetConnectionString" -p:TargetDatabase="$env:targetDatabase" -p:CreateNewDatabase="true" -t:Build -t:Deploy
+          msbuild.exe .\tSQLtVSTemplate\tSQLtVSTemplate.sln -m -p:Configuration=Debug -p:TargetConnectionString="$targetConnectionString" -p:TargetDatabase="$env:targetDatabase" -p:CreateNewDatabase="true" -t:Build -t:Deploy
 
 
   validate_build:
