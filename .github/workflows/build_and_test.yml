@@ -17,81 +17,55 @@ env:
 jobs:
 
   create_ci_mssql_instance:
-    name: Create CI SQL Server Instance
-    runs-on: windows-latest
-
+    name: Create CI MSSQL Instance
+    runs-on: ubuntu-latest
+    
+    
     steps:
 
-      - name: Install spawnctl.exe
-        shell: pwsh
-        run: |
-          Write-Host "Downloading and installing spawnctl..."
-          Invoke-WebRequest -Uri "https://run.spawn.cc/spawnctl.exe" -UseBasicParsing -OutFile "${{ github.workspace }}\spawnctl.exe"
-          & "${{ github.workspace }}\spawnctl.exe" version
-
-      - name: Create SQL Server Data Container
-        id: create-data-container
-        shell: pwsh
-        run: |
-          echo "Creating 'tSQLtOnLinux' Spawn data container from image '$env:spawnDataImage'";
-          $containerName = & "${{ github.workspace }}\spawnctl.exe" create data-container --image $env:spawnDataImage --lifetime 15m -q
-          Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
-          Write-Host "Container Name: "$containerName;
-          Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
-
-          if ([string]::IsNullOrEmpty($containerName)) {
-              Write-Error "Error creating data container.";
-              return;
-          }
-
-          $containerJSON= & "${{ github.workspace }}\spawnctl.exe" get data-container $containerName -o json
-          $containerJSON;
-
-
-          $containerInfo = ConvertFrom-JSON -inputObject $containerJSON;
-          $containerFQDN=$containerInfo.host+", "+$containerInfo.port;
-          $containerUser=$containerInfo.user;
-          $containerPassword=$containerInfo.password;
-
-          echo "Successfully created Spawn data container '$containerName'"
-          Write-Host ('::set-output name=containerFQDN::'+$containerFQDN);
-          Write-Host ('::set-output name=containerUser::'+$containerUser);
-          Write-Host ('::set-output name=containerPassword::'+$containerPassword);
+      - name: create data container
+        id: create-container
+        uses: red-gate/create-spawn-data-container/@v1.1
+        with:
+          dataImage: ${{ env.SPAWNDATAIMAGE }}
+          lifetime: '15m'
+          useMasking: 'false'
         env:
           SPAWNCTL_ACCESS_TOKEN: ${{ secrets.SPAWNCTL_ACCESS_TOKEN }}
-          spawnDataImage: ${{ env.SPAWNDATAIMAGE }}
 
-      - name: Confirm SQL Server is Up and Listening
+      - name: Create Container Variables
+        id: create-container-vars
         shell: pwsh
         run: |
-          $query = "SELECT SUSER_NAME() U,SYSDATETIME() T,@@VERSION V;";
+          $containerFQDN =$env:containerHost+", "+$env:containerPort;
+          $containerUser = $env:containerUsername;
+          $containerPassword = $env:containerPassword;
+
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
-          Write-Host "";
-          $DS = Invoke-Sqlcmd -ConnectionTimeout 600 `
-                              -Query $query `
-                              -ServerInstance $env:containerFQDN `
-                              -Username $env:containerUser `
-                              -Password $env:containerPassword `
-                              -As DataSet
-          $DS.Tables[0].Rows | %{ echo "{ $($_['U']), $($_['T']), $($_['V']) }" };
-          Write-Host "";
+          Write-Host "Container Name: "$env:containerName;
+          Write-Host "Container FQDN: "$containerFQDN;
+          Write-Host "Container Username: "$containerUser;
+          Write-Host "Container Password: "$containerPassword;
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
+
+          Write-Host ('::set-output name=containerFQDN::'+$containerFQDN);
         env:
-          containerFQDN: ${{ steps.create-data-container.outputs.containerFQDN }}
-          containerUser: ${{ steps.create-data-container.outputs.containerUser }}
-          containerPassword: ${{ steps.create-data-container.outputs.containerPassword }} 
+          containerName: ${{ steps.create-container.outputs.dataContainerName }}
+          containerHost: ${{ steps.create-container.outputs.dataContainerHost }}
+          containerPort: ${{ steps.create-container.outputs.dataContainerPort }}
+          containerUsername: ${{ steps.create-container.outputs.dataContainerUsername }}
+          containerPassword: ${{ steps.create-container.outputs.dataContainerPassword }}
 
     outputs:
-      containerFQDN: ${{ steps.create-data-container.outputs.containerFQDN }}
-      containerUser: ${{ steps.create-data-container.outputs.containerUser }}
-      containerPassword: ${{ steps.create-data-container.outputs.containerPassword }} 
+      containerFQDN: ${{ steps.create-container-vars.outputs.containerFQDN }}
+      containerUser: ${{ steps.create-container.outputs.dataContainerUsername }}
+      containerPassword: ${{ steps.create-container.outputs.dataContainerPassword }} 
 
 
-  # This workflow contains a single job called "build"
   build:
     name: Build Database Solution
     needs: [create_ci_mssql_instance]
-    # The type of runner that the job will run on
+
     runs-on: windows-latest
 
     env:
@@ -99,7 +73,7 @@ jobs:
       containerUser: ${{ needs.create_ci_mssql_instance.outputs.containerUser }}
       containerPassword: ${{ needs.create_ci_mssql_instance.outputs.containerPassword }}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -110,7 +84,18 @@ jobs:
       - name: Prepare SQL Server Instance
         shell: pwsh
         run: |
+
+          Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
+          Write-Host "";
+
+          $DS = Invoke-Sqlcmd -ConnectionTimeout 600 -Query "SELECT SUSER_NAME() U,SYSDATETIME() T,@@VERSION V;" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword -As DataSet
+          $DS.Tables[0].Rows | %{ echo "{ $($_['U']), $($_['T']), $($_['V']) }" };
+
+          Write-Host "";
+          Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
+
           Invoke-Sqlcmd -InputFile "./tSQLtVSTemplate/Tests/referenceFiles/PrepareServer.sql" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword
+
 
       # Runs a set of commands using the runners shell
       - name: Build Database Solution
