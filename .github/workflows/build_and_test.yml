@@ -50,7 +50,6 @@ jobs:
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
 
           Write-Host ('::set-output name=containerFQDN::'+$containerFQDN);
-          $testValue='1234x679';Write-Host ('::set-output name=containerTest::'+$testValue);
         env:
           containerName: ${{ steps.create-container.outputs.dataContainerName }}
           containerHost: ${{ steps.create-container.outputs.dataContainerHost }}
@@ -59,7 +58,6 @@ jobs:
           containerPassword: ${{ steps.create-container.outputs.dataContainerPassword }}
 
     outputs:
-      containerTest: ${{ steps.create-container-vars.outputs.containerTest }}
       containerFQDN: ${{ steps.create-container-vars.outputs.containerFQDN }}
       containerUser: ${{ steps.create-container.outputs.dataContainerUsername }}
       containerPassword: ${{ steps.create-container.outputs.dataContainerPassword }} 
@@ -72,7 +70,6 @@ jobs:
     runs-on: windows-latest
 
     env:
-      containerTest: ${{ needs.create_ci_mssql_instance.outputs.containerTest }}
       containerFQDN: ${{ needs.create_ci_mssql_instance.outputs.containerFQDN }}
       containerUser: ${{ needs.create_ci_mssql_instance.outputs.containerUser }}
       containerPassword: ${{ needs.create_ci_mssql_instance.outputs.containerPassword }}
