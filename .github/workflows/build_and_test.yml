@@ -46,7 +46,6 @@ jobs:
           Write-Host "Container FQDN: "$containerFQDN;
           Write-Host "Container Username: "$containerUser;
           Write-Host "Container Password: "$containerPassword;
-          Write-Host "Container Password Length : "($containerPassword).length;
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
 
           Write-Host ('::set-output name=containerFQDN::'+$containerFQDN);
