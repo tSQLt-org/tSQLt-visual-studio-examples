@@ -110,7 +110,7 @@ jobs:
       - name: Prepare SQL Server Instance
         shell: pwsh
         run: |
-          Invoke-Sqlcmd -InputFile "./tSQLtVSTemplate/Tests/references/PrepareServer.sql" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword
+          Invoke-Sqlcmd -InputFile "./tSQLtVSTemplate/Tests/referenceFiles/PrepareServer.sql" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword
 
       # Runs a set of commands using the runners shell
       - name: Build Database Solution
