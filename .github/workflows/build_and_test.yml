@@ -17,7 +17,7 @@ env:
 jobs:
 
   create_ci_mssql_instance:
-    name: Create CI SQL Server Instance
+    name: Create CI MSSQL Instance
     runs-on: ubuntu-latest
     
     
@@ -88,17 +88,6 @@ jobs:
       - name: Prepare SQL Server Instance
         shell: pwsh
         run: |
-
-Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
-          Write-Host "Container FQDN: "$env:containerTest;
-
-          Write-Host "Container FQDN: "$env:containerFQDN;
-          Write-Host "Container Username: "$env:containerUser;
-          Write-Host "Container Password: "$env:containerPassword;
-
-          # Write-Host "Container FQDN: ${{ env.containerFQDN }}";
-          # Write-Host "Container Username: ${{ env.containerUser }}";
-          # Write-Host "Container Password: ${{ env.containerPassword }}";
 
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
           Write-Host "";
