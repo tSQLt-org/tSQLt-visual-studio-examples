@@ -4,7 +4,6 @@ name: Build_And_Test
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
 
   # Allows you to run this workflow manually from the Actions tab
@@ -18,8 +17,10 @@ env:
 jobs:
 
   create_ci_mssql_instance:
-    name: Create CI MSSQL Instance
+    name: Create CI SQL Server Instance
     runs-on: ubuntu-latest
+    
+    
     steps:
 
       - name: create data container
@@ -57,7 +58,6 @@ jobs:
           containerUsername: ${{ steps.create-container.outputs.dataContainerUsername }}
           containerPassword: ${{ steps.create-container.outputs.dataContainerPassword }}
 
-
     outputs:
       containerTest: ${{ steps.create-container-vars.outputs.containerTest }}
       containerFQDN: ${{ steps.create-container-vars.outputs.containerFQDN }}
@@ -89,19 +89,17 @@ jobs:
       - name: Prepare SQL Server Instance
         shell: pwsh
         run: |
-          Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
+
+Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
           Write-Host "Container FQDN: "$env:containerTest;
 
           Write-Host "Container FQDN: "$env:containerFQDN;
-          Write-Host "Container FQDN Length: "($env:containerFQDN).length;
-          Write-Host "Container Username: "$env:containerPassword;
-          Write-Host "Container Password: "($env:containerPassword).length
           Write-Host "Container Username: "$env:containerUser;
-          Write-Host "Container Password: "($env:containerUser).length
+          Write-Host "Container Password: "$env:containerPassword;
 
-          Write-Host "Container FQDN: ${{ env.containerFQDN }}";
-          Write-Host "Container Username: ${{ env.containerUser }}";
-          Write-Host "Container Password: ${{ env.containerPassword }}";
+          # Write-Host "Container FQDN: ${{ env.containerFQDN }}";
+          # Write-Host "Container Username: ${{ env.containerUser }}";
+          # Write-Host "Container Password: ${{ env.containerPassword }}";
 
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
           Write-Host "";
@@ -112,17 +110,17 @@ jobs:
           Write-Host "";
           Write-Host "✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ✨   ";
 
-          Invoke-Sqlcmd -InputFile "./tSQLtVSTemplate/Tests/references/PrepareServer.sql" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword
+          Invoke-Sqlcmd -InputFile "./tSQLtVSTemplate/Tests/referenceFiles/PrepareServer.sql" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword
 
 
       # Runs a set of commands using the runners shell
-      - name: Build database solution
+      - name: Build Database Solution
         shell: pwsh
         run: |
           msbuild -version
 
           $targetConnectionString = "Data Source="+$env:containerFQDN+";User ID="+$env:containerUser+";Password="+$env:containerPassword+";Pooling=False;Integrated Security=false";
-          msbuild.exe .\tSQLtVSTemplate\tSQLtVSTemplate.sln -p:Configuration=Debug -p:TargetConnectionString="$targetConnectionString" -p:TargetDatabase="$env:targetDatabase" -t:Build -t:Deploy
+          msbuild.exe .\tSQLtVSTemplate\tSQLtVSTemplate.sln -p:Configuration=Debug -p:TargetConnectionString="$targetConnectionString" -p:TargetDatabase="$env:targetDatabase" -p:CreateNewDatabase="true" -t:Build -t:Deploy
 
 
   validate_build:
@@ -145,12 +143,22 @@ jobs:
       - name: Run Tests
         shell: pwsh
         run: |
-          Invoke-Sqlcmd -Query "EXEC tSQLt.SetSummaryError @SummaryError=0;EXEC tSQLt.SetVerbose @Verbose = 1;EXEC tSQLt.RunAll;" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword  -Database "$env:targetDatabase" -OutputSqlErrors $true -AbortOnError -verbose
-          $DS = Invoke-Sqlcmd -Query "EXEC tSQLt.XMLResultFormatter;" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword  -Database "$env:targetDatabase" -As DataSet -OutputSqlErrors $true -AbortOnError -verbose
+          $query = "EXEC tSQLt.SetSummaryError @SummaryError=0;EXEC tSQLt.SetVerbose @Verbose = 1;EXEC tSQLt.RunAll;";
+
+          Invoke-Sqlcmd -Query $query `
+                        -ServerInstance $env:containerFQDN -Database $env:targetDatabase `
+                        -Username $env:containerUser -Password $env:containerPassword `
+                        -OutputSqlErrors $true -AbortOnError -verbose;
+
+          $DS = Invoke-Sqlcmd -Query "EXEC tSQLt.XMLResultFormatter;" `
+                              -ServerInstance $env:containerFQDN -Database $env:targetDatabase `
+                              -Username $env:containerUser -Password $env:containerPassword `
+                              -As DataSet -OutputSqlErrors $true -AbortOnError -verbose
+
           New-Item -Path "." -Name "TestResults" -ItemType "directory"
           $DS.Tables[0].Item(0)|Out-File "./TestResults/TestResults.xml";
 
-      - name: create test results artifact
+      - name: Upload Test Results Artifact
         uses: actions/upload-artifact@v2
         with:
           if-no-files-found: error
@@ -161,6 +169,11 @@ jobs:
       - name: Check for Failures
         shell: pwsh
         run: |
-          Invoke-Sqlcmd -Query "EXEC tSQLt.SetSummaryError @SummaryError=1;EXEC tSQLt.DefaultResultFormatter;" -ServerInstance $env:containerFQDN -Username $env:containerUser -Password $env:containerPassword  -Database "$env:targetDatabase" -OutputSqlErrors $true -AbortOnError -verbose
+          $query = "EXEC tSQLt.SetSummaryError @SummaryError=1;EXEC tSQLt.DefaultResultFormatter;";
+
+          Invoke-Sqlcmd -Query $query `
+                        -ServerInstance $env:containerFQDN -Database $env:targetDatabase `
+                        -Username $env:containerUser -Password $env:containerPassword `
+                        -OutputSqlErrors $true -AbortOnError -verbose;
 
           
