@@ -23,7 +23,7 @@ jobs:
     
     steps:
 
-      - name: create data container
+      - name: Create Data Container
         id: create-container
         uses: red-gate/create-spawn-data-container/@v1.1
         with:
@@ -121,8 +121,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
 
       - name: Run Tests
         shell: pwsh
@@ -134,13 +132,13 @@ jobs:
                         -Username $env:containerUser -Password $env:containerPassword `
                         -OutputSqlErrors $true -AbortOnError -verbose;
 
-          $DS = Invoke-Sqlcmd -Query "EXEC tSQLt.XMLResultFormatter;" `
+          $dataSet = Invoke-Sqlcmd -Query "EXEC tSQLt.XMLResultFormatter;" `
                               -ServerInstance $env:containerFQDN -Database $env:targetDatabase `
                               -Username $env:containerUser -Password $env:containerPassword `
                               -As DataSet -OutputSqlErrors $true -AbortOnError -verbose
 
           New-Item -Path "." -Name "TestResults" -ItemType "directory"
-          $DS.Tables[0].Item(0)|Out-File "./TestResults/TestResults.xml";
+          $dataSet.Tables[0].Item(0)|Out-File "./TestResults/TestResults.xml";
 
       - name: Upload Test Results Artifact
         uses: actions/upload-artifact@v2
