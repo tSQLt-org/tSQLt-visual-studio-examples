@@ -78,4 +78,7 @@
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
     </ArtifactReference>
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo_SplitStringTests.sql" />
+  </ItemGroup>
 </Project>

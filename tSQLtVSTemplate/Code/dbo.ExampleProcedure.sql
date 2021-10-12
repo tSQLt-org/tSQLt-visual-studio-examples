@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[ExampleProcedure]
+﻿CREATE PROCEDURE dbo.ExampleProcedure
 AS
 BEGIN
   SELECT AVG(Amount)

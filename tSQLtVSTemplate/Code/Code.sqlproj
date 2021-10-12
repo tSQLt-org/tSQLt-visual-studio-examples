@@ -61,5 +61,7 @@
   <ItemGroup>
     <Build Include="dbo.ExampleTable.sql" />
     <Build Include="dbo.ExampleProcedure.sql" />
+    <Build Include="dbo.SplitString.sfn.sql" />
+    <Build Include="dbo.GetTallyTable.sql" />
   </ItemGroup>
 </Project>
