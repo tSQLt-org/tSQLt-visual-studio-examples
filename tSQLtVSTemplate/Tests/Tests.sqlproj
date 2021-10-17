@@ -78,4 +78,7 @@
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
     </ArtifactReference>
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo_CalculateDiscountTests.sql" />
+  </ItemGroup>
 </Project>

@@ -61,5 +61,6 @@
   <ItemGroup>
     <Build Include="dbo.ExampleTable.sql" />
     <Build Include="dbo.ExampleProcedure.sql" />
+    <Build Include="dbo.CalculateDiscount.sql" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,14 @@
+﻿/*
+DROP FUNCTION IF EXISTS dbo.CalculateDiscount;
+GO
+--*/
+CREATE FUNCTION dbo.CalculateDiscount
+(
+	@v NUMERIC(13,2)
+)
+RETURNS TABLE
+AS
+RETURN
+	SELECT CASE WHEN @v>=50.00 THEN @v*0.10 ELSE 0 END AS discount;
+GO
+
