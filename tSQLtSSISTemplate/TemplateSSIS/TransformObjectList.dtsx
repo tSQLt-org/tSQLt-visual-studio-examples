@@ -11,10 +11,21 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="TransformObjectList"
   DTS:PackageType="5"
-  DTS:VersionBuild="7"
-  DTS:VersionGUID="{755A3814-EB30-47E5-BFD5-D96EE2002CB1}">
+  DTS:VersionBuild="8"
+  DTS:VersionGUID="{C29636C6-E92A-4014-A0CA-F5D68231EC9F}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{1C0779B8-BE74-4478-AB9E-81342EFEE9C9}"
+      DTS:ObjectName="SourceDbConnectionQuery">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">select name, SCHEMA_NAME(schema_id) SchemaName, QUOTENAME(SCHEMA_NAME(schema_id)) QuotedSchemaName, QUOTENAME(name) QuotedName from sys.objects</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
@@ -90,7 +101,7 @@
                 <connection
                   refId="Package\Data Flow Task\OLE DB Destination.Connections[OleDbConnection]"
                   connectionManagerID="{8C72DA7D-74F4-4FE8-9693-F4378FCF2E27}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[_,41433.tSQLt_Dev.tSQLt_sa1]"
+                  connectionManagerRefId="Project.ConnectionManagers[targetDB]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -222,7 +233,7 @@
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
-                  name="SqlCommandVariable"></property>
+                  name="SqlCommandVariable">$Package::SourceDbConnectionQuery</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -235,7 +246,7 @@
                   dataType="System.Int32"
                   description="Specifies the mode used to access the database."
                   name="AccessMode"
-                  typeConverter="AccessMode">2</property>
+                  typeConverter="AccessMode">3</property>
                 <property
                   dataType="System.String"
                   description="The mappings between the parameters in the SQL command and variables."
