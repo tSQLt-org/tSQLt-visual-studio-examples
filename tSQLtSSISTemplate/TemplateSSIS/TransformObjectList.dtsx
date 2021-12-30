@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="TransformObjectList"
   DTS:PackageType="5"
-  DTS:VersionBuild="8"
-  DTS:VersionGUID="{C29636C6-E92A-4014-A0CA-F5D68231EC9F}">
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{3E3F0B75-1B49-4F1C-BD35-37C566D6E2F6}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:PackageParameters>
@@ -508,7 +508,7 @@
         <NodeLayout
           Size="171.2,41.6"
           Id="Package\Data Flow Task\OLE DB Destination"
-          TopLeft="30.4999990065893,255.677779766012" />
+          TopLeft="3.00000009934102,261.744446480892" />
         <NodeLayout
           Size="152,41.6"
           Id="Package\Data Flow Task\OLE DB Source"
@@ -541,30 +541,18 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Derived Column Output]"
-          TopLeft="86.1222221339191,175.944445468408">
+          TopLeft="87.36111111663,175.944445468408">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="29.9777768726702,79.733334297604"
+              EndConnector="0,85.8000010124842"
               Start="0,0"
-              End="29.9777768726702,72.233334297604">
+              End="0,78.3000010124842">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,35.866667148802" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,35.866667148802"
-                    Point2="0,39.866667148802"
-                    Point3="4,39.866667148802" />
-                  <mssgle:LineSegment
-                    End="25.9777768726702,39.866667148802" />
-                  <mssgle:CubicBezierSegment
-                    Point1="25.9777768726702,39.866667148802"
-                    Point2="29.9777768726702,39.866667148802"
-                    Point3="29.9777768726702,43.866667148802" />
-                  <mssgle:LineSegment
-                    End="29.9777768726702,72.233334297604" />
+                    End="0,78.3000010124842" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

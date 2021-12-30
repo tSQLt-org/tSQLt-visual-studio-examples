@@ -3,6 +3,10 @@
   DTS:ObjectName="sourceDB"
   DTS:DTSID="{E9C9113E-C2A4-4DE2-A9BA-9665B91E7688}"
   DTS:CreationName="OLEDB">
+  <DTS:PropertyExpression
+    DTS:Name="ConnectionString">@[$Project::SourceDB_ConnectionString]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="Password">@[$Project::SourceDB_Password]</DTS:PropertyExpression>
   <DTS:ObjectData>
     <DTS:ConnectionManager
       DTS:ConnectRetryCount="1"
@@ -10,7 +14,7 @@
       DTS:ConnectionString="Data Source=.,41433;User ID=tSQLt_sa;Initial Catalog=tSQLt_Dev;Provider=SQLNCLI11.1;Auto Translate=False;">
       <DTS:Password
         DTS:Name="Password"
-        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAKFXbBc36KkGV38YQYb7UPgAAAAACAAAAAAAQZgAAAAEAACAAAACeA0eDRCglsunOrEyZZlrjpkgfQNuX57sDvM6pKl+LXAAAAAAOgAAAAAIAACAAAAAXCj5B82h0X6h8eeHGsdhSmBdsKhNDqErGPWXdI6UC7oAAAABecyzGWJ6TtC8R8Q2oKSQLfGY1wYS3k3wIZw3h9MmL8DcMjcQmSzBVO4RA2J7XTRs+6hFCIZklyvYS2Nx9OvsmE8PWqpH6LSMsXjtjIfD/wPrjfqLDO1TPAyfha0ZMv7DEAoK6m3W7dqPQdaRoKEBkX9ZDDPjkUocBjGfVlW9R9EAAAAAaFpbOL2l999nvJeHLbnRLmKtr4QPPoQDYBN1fVeAWKoLUzWGnbC1aqFxZL+Hd4JwCcgGTxj37c4yfvvq855VU</DTS:Password>
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAKFXbBc36KkGV38YQYb7UPgAAAAACAAAAAAAQZgAAAAEAACAAAABYwKz6gZ7RfWLbmZsknl7wPO17+ZHRhj1AgSbrKwn3UgAAAAAOgAAAAAIAACAAAAC6PKgRRxZl9kDGlYGupxMMY07mtd/roBoWRSwd5O4hOIAAAADlMVwiNZuapPuZUDDmX25LYRkYr+dzwYA0qmM0VzCDQlW5i1NXOQMDSOPVROapevORPHnL/AZZTnRIvoNVAdUJ5ugvhfDySEQGZEg48EKR2dc9ld5U1nUg3BfnNSfPUllHDbvr85OrRiGvAr2CTCLqWMWUvT22rv/c2wb7hNmOwEAAAACGABY3E7rD3Nwa45IozfId9eEOPK+LiM27nSY37WIBBBbHj1RuKP7nswooW2b9aH8ETA2q2Vu1OxZAHO9LeK/z</DTS:Password>
     </DTS:ConnectionManager>
   </DTS:ObjectData>
 </DTS:ConnectionManager>

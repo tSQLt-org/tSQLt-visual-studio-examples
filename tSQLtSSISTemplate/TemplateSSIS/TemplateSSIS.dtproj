@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">DESKTOP-4IR3L3D</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAKFXbBc36KkGV38YQYb7UPgAAAAACAAAAAAAQZgAAAAEAACAAAABnmirY+iXzpgXIT/u/9VXigw0fiwluxXZ0KtsKsGDccgAAAAAOgAAAAAIAACAAAACDnDhGFAWUFkZhNhm53UyF0htZ6ZkCCSiy7r+s5KS+B5AAAABZ5Azur7EcVT1R1DtuvAw75Fgq93WM6TeeI/HmREX78biKx7tC3+pZ2qt/VXmsyXOE2kJZhQdgkmRTo2lSZOIctOI8XeC4IGRFbUsaZmgVXRjbq67WUnGZVTeKtWrMHidOReTKzWD4c5QEc0oQ0X/3wezFI23GqRADJH3iUnHIIKaLSR3uso2k9kYckq4rWm5AAAAAzrXC5qjc63XIPJIjCVWTqsMKE+4g8UniYKxpi4Dia8Umx07HYxzp1UfbS+Ygaec8odroimLTSpHe7/1umDU6OQ==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAKFXbBc36KkGV38YQYb7UPgAAAAACAAAAAAAQZgAAAAEAACAAAACYp05DcUM+b/5TjWCAvb/JQ6hF6tUaeN2Z+SdtkUczqwAAAAAOgAAAAAIAACAAAADdV/Mv9rT6J3bMUnEPbJSX6m2nxCjh9vI1XIASzyf3OpAAAADPKtUa8E9Euj/mKnVIXABo7d2gUeHSIbKtWTIyZHaJs/8hFNMzkdVFiHiQ7CrZ6kNinsyoZPDHPDmyjf6uuBtF9NGz9JTRJ82/R7hWcBCUFDQf50EC99tfAmU5SC88z9n5U4E8rlEMhtmitY0BBTdWjnucicr0QpZ4UL0GaXUYudJzQ8PCAsw403fhhgcLHFJAAAAAEpgG1z8uY8I4NM79cC/kqLksMKBRM2iOCzEo5McOp/BboOfvauHHsgmzFL5qeERiH1jzfCG9qkvZwhT6esQvcg==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -51,21 +51,6 @@
                 <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Value">false</SSIS:Property>
                 <SSIS:Property SSIS:Name="DataType">3</SSIS:Property>
-              </SSIS:Properties>
-            </SSIS:Parameter>
-            <SSIS:Parameter SSIS:Name="CM.sourceDB.ConnectionString">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="CreationName">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">Data Source=.,41433;User ID=tSQLt_sa;Initial Catalog=tSQLt_Dev;Provider=SQLNCLI11.1;Auto Translate=False;</SSIS:Property>
-                <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
             <SSIS:Parameter SSIS:Name="CM.sourceDB.ConnectRetryCount">
@@ -200,21 +185,6 @@
                 <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Value">false</SSIS:Property>
                 <SSIS:Property SSIS:Name="DataType">3</SSIS:Property>
-              </SSIS:Properties>
-            </SSIS:Parameter>
-            <SSIS:Parameter SSIS:Name="CM.targetDB.ConnectionString">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="CreationName">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">Data Source=.,41433;User ID=tSQLt_sa;Initial Catalog=tSQLt_Dev;Provider=SQLNCLI11.1;Application Name=TargetDBConnection;Auto Translate=False;</SSIS:Property>
-                <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
             <SSIS:Parameter SSIS:Name="CM.targetDB.ConnectRetryCount">
