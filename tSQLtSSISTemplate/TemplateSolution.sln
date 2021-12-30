@@ -11,6 +11,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TemplateDatabaseTests", "Te
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TemplateSSISTests", "TemplateSSISTests\TemplateSSISTests.sqlproj", "{C01B58D3-06D7-43B1-9514-8131C3935D0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemplateSSIS.CI", "TemplateSSIS.CI\TemplateSSIS.CI.csproj", "{52EFCC53-D796-4C8D-85E7-43DA7A3FFCED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Azure|Any CPU = Azure|Any CPU
@@ -63,6 +65,14 @@ Global
 		{C01B58D3-06D7-43B1-9514-8131C3935D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C01B58D3-06D7-43B1-9514-8131C3935D0B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C01B58D3-06D7-43B1-9514-8131C3935D0B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{52EFCC53-D796-4C8D-85E7-43DA7A3FFCED}.Azure|Any CPU.ActiveCfg = Debug|Any CPU
+		{52EFCC53-D796-4C8D-85E7-43DA7A3FFCED}.Azure|Any CPU.Build.0 = Debug|Any CPU
+		{52EFCC53-D796-4C8D-85E7-43DA7A3FFCED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52EFCC53-D796-4C8D-85E7-43DA7A3FFCED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52EFCC53-D796-4C8D-85E7-43DA7A3FFCED}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{52EFCC53-D796-4C8D-85E7-43DA7A3FFCED}.Development|Any CPU.Build.0 = Debug|Any CPU
+		{52EFCC53-D796-4C8D-85E7-43DA7A3FFCED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52EFCC53-D796-4C8D-85E7-43DA7A3FFCED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

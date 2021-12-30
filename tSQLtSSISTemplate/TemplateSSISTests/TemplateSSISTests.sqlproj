@@ -57,4 +57,7 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="VariableReferenceMapping.sql" />
+  </ItemGroup>
 </Project>
