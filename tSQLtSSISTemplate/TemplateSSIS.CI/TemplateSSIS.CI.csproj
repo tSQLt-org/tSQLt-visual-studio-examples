@@ -49,6 +49,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CreateSSISFolder.sql" />
+    <Content Include="DeleteSSISFolder.sql" />
     <Content Include="SetVariableValues.sql" />
     <None Include="DeploySSIS.ps1" />
     <Content Include="VariableReferenceMapping.sql" />
