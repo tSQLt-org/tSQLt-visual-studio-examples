@@ -13,6 +13,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TemplateSSISTests", "Templa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemplateSSIS.CI", "TemplateSSIS.CI\TemplateSSIS.CI.csproj", "{52EFCC53-D796-4C8D-85E7-43DA7A3FFCED}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ReferenceObjects", "ReferenceObjects\ReferenceObjects.sqlproj", "{7DE3B0BC-090A-4CE6-A691-23291168B692}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Azure|Any CPU = Azure|Any CPU
@@ -73,6 +75,18 @@ Global
 		{52EFCC53-D796-4C8D-85E7-43DA7A3FFCED}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{52EFCC53-D796-4C8D-85E7-43DA7A3FFCED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52EFCC53-D796-4C8D-85E7-43DA7A3FFCED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DE3B0BC-090A-4CE6-A691-23291168B692}.Azure|Any CPU.ActiveCfg = Release|Any CPU
+		{7DE3B0BC-090A-4CE6-A691-23291168B692}.Azure|Any CPU.Build.0 = Release|Any CPU
+		{7DE3B0BC-090A-4CE6-A691-23291168B692}.Azure|Any CPU.Deploy.0 = Release|Any CPU
+		{7DE3B0BC-090A-4CE6-A691-23291168B692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DE3B0BC-090A-4CE6-A691-23291168B692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DE3B0BC-090A-4CE6-A691-23291168B692}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7DE3B0BC-090A-4CE6-A691-23291168B692}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DE3B0BC-090A-4CE6-A691-23291168B692}.Development|Any CPU.Build.0 = Debug|Any CPU
+		{7DE3B0BC-090A-4CE6-A691-23291168B692}.Development|Any CPU.Deploy.0 = Debug|Any CPU
+		{7DE3B0BC-090A-4CE6-A691-23291168B692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DE3B0BC-090A-4CE6-A691-23291168B692}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DE3B0BC-090A-4CE6-A691-23291168B692}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,10 +11,36 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="TransformObjectList"
   DTS:PackageType="5"
-  DTS:VersionBuild="9"
-  DTS:VersionGUID="{3E3F0B75-1B49-4F1C-BD35-37C566D6E2F6}">
+  DTS:VersionBuild="12"
+  DTS:VersionGUID="{AC967867-F36C-4900-A3E1-73E6D4D2CB7D}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[sourceDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{80C67C42-C4C8-4922-B37D-8D09D12308F1}"
+      DTS:ObjectName="sourceDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.,42419;Initial Catalog=tSQLt_SSISTemplate;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[targetDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{9BD77D02-E0D4-493B-9884-14B38C59CBDF}"
+      DTS:ObjectName="targetDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.,42419;Initial Catalog=tSQLt_SSISTemplate;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
   <DTS:PackageParameters>
     <DTS:PackageParameter
       DTS:CreationName=""
@@ -23,7 +49,7 @@
       DTS:ObjectName="SourceDbConnectionQuery">
       <DTS:Property
         DTS:DataType="8"
-        DTS:Name="ParameterValue">select name, SCHEMA_NAME(schema_id) SchemaName, QUOTENAME(SCHEMA_NAME(schema_id)) QuotedSchemaName, QUOTENAME(name) QuotedName from sys.objects</DTS:Property>
+        DTS:Name="ParameterValue">SELECT * FROM SSISObjects.TransformObjectList_GetObjects;</DTS:Property>
     </DTS:PackageParameter>
   </DTS:PackageParameters>
   <DTS:Variables />
@@ -100,8 +126,8 @@
               <connections>
                 <connection
                   refId="Package\Data Flow Task\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="{8C72DA7D-74F4-4FE8-9693-F4378FCF2E27}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[targetDB]"
+                  connectionManagerID="Package.ConnectionManagers[targetDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[targetDB]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -220,7 +246,7 @@
                 <property
                   dataType="System.String"
                   description="Specifies the name of the database object used to open a rowset."
-                  name="OpenRowset"></property>
+                  name="OpenRowset">[SSISObjects].[TransformObjectList_GetObjects]</property>
                 <property
                   dataType="System.String"
                   description="Specifies the variable that contains the name of the database object used to open a rowset."
@@ -246,7 +272,7 @@
                   dataType="System.Int32"
                   description="Specifies the mode used to access the database."
                   name="AccessMode"
-                  typeConverter="AccessMode">3</property>
+                  typeConverter="AccessMode">0</property>
                 <property
                   dataType="System.String"
                   description="The mappings between the parameters in the SQL command and variables."
@@ -255,8 +281,8 @@
               <connections>
                 <connection
                   refId="Package\Data Flow Task\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="{E9C9113E-C2A4-4DE2-A9BA-9665B91E7688}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[sourceDB]"
+                  connectionManagerID="Package.ConnectionManagers[sourceDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[sourceDB]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -494,7 +520,7 @@
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
         <NodeLayout
-          Size="150.4,41.6"
+          Size="150,42"
           Id="Package\Data Flow Task"
           TopLeft="5.5,5.5" />
       </GraphLayout>
@@ -506,15 +532,15 @@
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="171.2,41.6"
+          Size="171,42"
           Id="Package\Data Flow Task\OLE DB Destination"
           TopLeft="3.00000009934102,261.744446480892" />
         <NodeLayout
-          Size="152,41.6"
+          Size="152,42"
           Id="Package\Data Flow Task\OLE DB Source"
           TopLeft="6.50000000000001,5.5" />
         <NodeLayout
-          Size="156.8,41.6"
+          Size="157,42"
           Id="Package\Data Flow Task\QuotedFullName"
           TopLeft="7.72222213391908,134.344445468408" />
         <EdgeLayout
@@ -586,7 +612,7 @@
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q2:string">Table</Value>
+          type="q2:string">View</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

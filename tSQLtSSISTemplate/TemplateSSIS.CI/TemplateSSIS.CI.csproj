@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{52EFCC53-D796-4C8D-85E7-43DA7A3FFCED}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>TemplateSSIS.CI</RootNamespace>
     <AssemblyName>TemplateSSIS.CI</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>

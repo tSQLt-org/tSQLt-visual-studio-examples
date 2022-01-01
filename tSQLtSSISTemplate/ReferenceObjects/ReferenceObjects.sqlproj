@@ -3,16 +3,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>TemplateDatabaseTests</Name>
+    <Name>ReferenceObjects</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{2c86a7b1-bd0e-4aa2-aaa6-9df8b515df2a}</ProjectGuid>
+    <ProjectGuid>{7de3b0bc-090a-4ce6-a691-23291168b692}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>TemplateDatabaseTests</RootNamespace>
-    <AssemblyName>TemplateDatabaseTests</AssemblyName>
+    <RootNamespace>ReferenceObjects</RootNamespace>
+    <AssemblyName>ReferenceObjects</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
@@ -56,30 +56,5 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-  </ItemGroup>
-  <ItemGroup>
-    <ArtifactReference Include="..\ReferenceObjects\tSQLt.2019.dacpac">
-      <HintPath>..\ReferenceObjects\tSQLt.2019.dacpac</HintPath>
-      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
-    </ArtifactReference>
-    <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\150\SqlSchemas\master.dacpac">
-      <HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\150\SqlSchemas\master.dacpac</HintPath>
-      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
-      <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
-    </ArtifactReference>
-  </ItemGroup>
-  <ItemGroup>
-    <SqlCmdVariable Include="TemplateDatabase">
-      <DefaultValue>TemplateDatabase</DefaultValue>
-      <Value>$(SqlCmdVar__1)</Value>
-    </SqlCmdVariable>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TemplateDatabase\TemplateDatabase.sqlproj">
-      <Name>TemplateDatabase</Name>
-      <Project>{23a6e107-9ab3-4f27-8365-1c5c19147e94}</Project>
-      <Private>True</Private>
-      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
-    </ProjectReference>
   </ItemGroup>
 </Project>
