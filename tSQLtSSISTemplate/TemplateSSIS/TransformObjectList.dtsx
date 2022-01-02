@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="TransformObjectList"
   DTS:PackageType="5"
-  DTS:VersionBuild="12"
-  DTS:VersionGUID="{AC967867-F36C-4900-A3E1-73E6D4D2CB7D}">
+  DTS:VersionBuild="14"
+  DTS:VersionGUID="{036B9E8E-B87C-4A66-A4CE-E85FABC28E5E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -83,7 +83,7 @@
                 <property
                   dataType="System.String"
                   description="Specifies the name of the database object used to open a rowset."
-                  name="OpenRowset">[OLE DB Destination]</property>
+                  name="OpenRowset">[dbo].[TransformedObjectList]</property>
                 <property
                   dataType="System.String"
                   description="Specifies the variable that contains the name of the database object used to open a rowset."
@@ -532,7 +532,7 @@
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="171,42"
+          Size="177,42"
           Id="Package\Data Flow Task\OLE DB Destination"
           TopLeft="3.00000009934102,261.744446480892" />
         <NodeLayout
@@ -567,18 +567,18 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Derived Column Output]"
-          TopLeft="87.36111111663,175.944445468408">
+          TopLeft="88.86111111663,176.344445468408">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,85.8000010124842"
+              EndConnector="0,85.400001012484"
               Start="0,0"
-              End="0,78.3000010124842">
+              End="0,77.900001012484">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,78.3000010124842" />
+                    End="0,77.900001012484" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

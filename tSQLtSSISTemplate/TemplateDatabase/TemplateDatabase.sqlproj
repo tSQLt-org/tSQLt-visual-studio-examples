@@ -60,6 +60,7 @@
   <ItemGroup>
     <Build Include="SSISObjects.sql" />
     <Build Include="SSISObjects.TransformObjectList_GetObjects.sql" />
+    <Build Include="TransformedObjectList.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\150\SqlSchemas\master.dacpac">
