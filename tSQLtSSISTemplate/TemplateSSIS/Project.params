@@ -1,10 +1,52 @@
 ﻿<?xml version="1.0"?>
 <SSIS:Parameters xmlns:SSIS="www.microsoft.com/SqlServer/SSIS">
   <SSIS:Parameter
+    SSIS:Name="TargetDB_InitialCatalog">
+    <SSIS:Properties>
+      <SSIS:Property
+        SSIS:Name="ID">{5ca98efc-d874-4151-bfb6-ed53d5f8396e}</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="CreationName"></SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Description"></SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Required">0</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Sensitive">0</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Value">tSQLt_SSISTemplate</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="DataType">18</SSIS:Property>
+    </SSIS:Properties>
+  </SSIS:Parameter>
+  <SSIS:Parameter
+    SSIS:Name="TargetDB_ServerName">
+    <SSIS:Properties>
+      <SSIS:Property
+        SSIS:Name="ID">{e4223dcd-5ffe-42e2-919d-d9ded7f79189}</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="CreationName"></SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Description"></SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Required">0</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Sensitive">0</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Value">.,42419</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="DataType">18</SSIS:Property>
+    </SSIS:Properties>
+  </SSIS:Parameter>
+  <SSIS:Parameter
     SSIS:Name="SourceDB_ConnectionString">
     <SSIS:Properties>
       <SSIS:Property
-        SSIS:Name="ID">{33cc45ca-2878-4b50-9895-a9b96afb0b9e}</SSIS:Property>
+        SSIS:Name="ID">{cc1ba36a-d090-481d-83d7-6c7d69384db6}</SSIS:Property>
       <SSIS:Property
         SSIS:Name="CreationName"></SSIS:Property>
       <SSIS:Property
@@ -12,76 +54,11 @@
       <SSIS:Property
         SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
       <SSIS:Property
-        SSIS:Name="Required">1</SSIS:Property>
+        SSIS:Name="Required">0</SSIS:Property>
       <SSIS:Property
         SSIS:Name="Sensitive">0</SSIS:Property>
       <SSIS:Property
-        SSIS:Name="Value">Data Source=.,41433;User ID=tSQLt_sa;Initial Catalog=tSQLt_Dev;Provider=SQLNCLI11.1;Auto Translate=False;</SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="DataType">18</SSIS:Property>
-    </SSIS:Properties>
-  </SSIS:Parameter>
-  <SSIS:Parameter
-    SSIS:Name="TargetDB_ConnectionString">
-    <SSIS:Properties>
-      <SSIS:Property
-        SSIS:Name="ID">{b62f29a8-a656-495a-b0be-e9eeb0e214ee}</SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="CreationName"></SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="Description"></SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="Required">1</SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="Sensitive">0</SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="Value">Data Source=.,41433;User ID=tSQLt_sa;Initial Catalog=tSQLt_Dev;Provider=SQLNCLI11.1;Application Name=TargetDBConnection;Auto Translate=False;</SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="DataType">18</SSIS:Property>
-    </SSIS:Properties>
-  </SSIS:Parameter>
-  <SSIS:Parameter
-    SSIS:Name="SourceDB_Password">
-    <SSIS:Properties>
-      <SSIS:Property
-        SSIS:Name="ID">{f1f1ba35-addc-4104-a90f-3214904570eb}</SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="CreationName"></SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="Description"></SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="Required">1</SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="Sensitive">1</SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="Value"
-        SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAKFXbBc36KkGV38YQYb7UPgAAAAACAAAAAAAQZgAAAAEAACAAAABrVSCAtFlXo3pzwii0lfTBjw1lsMZJBXBVR/pJDrmfxAAAAAAOgAAAAAIAACAAAABAQyeT4ji6/6l9r8jKPgdkUMYeNK4+splwUJ1bLSvsHYAAAADQFUuFZk6alsmbJPMi9yFVvf1LsjSAGaj5ZhPk5s1Cxitiq4bHQQeEDdGPVEKDshGQASBKE04G1VJM68WFYHUEWpTP4YMoReV3TXDc3y5zwxGsmwOU1uVxS3h2eJRX3XRXKRnJo2SOK6b/Lv+k+5OWMlD7qnD16GiWwTB0me+k4kAAAAB7MycME58LizAYHkxN4Nd5Cvbnma5tKhFzqrHX5LD4MSy9M+ixNur7dlwScl7SHLiXbbkX7B1Hd2mMwXKdx/GK</SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="DataType">18</SSIS:Property>
-    </SSIS:Properties>
-  </SSIS:Parameter>
-  <SSIS:Parameter
-    SSIS:Name="TargetDB_Password">
-    <SSIS:Properties>
-      <SSIS:Property
-        SSIS:Name="ID">{94d8127a-e18d-4e19-aba6-5bb4bd2bf34d}</SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="CreationName"></SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="Description"></SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="Required">1</SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="Sensitive">1</SSIS:Property>
-      <SSIS:Property
-        SSIS:Name="Value"
-        SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAKFXbBc36KkGV38YQYb7UPgAAAAACAAAAAAAQZgAAAAEAACAAAACXEyoewIeBKzBK/ELLwRp+RIHIlNKhaiqTfmntoHb1xwAAAAAOgAAAAAIAACAAAAAgzGaw4hDmAmRKmTw8/02lv7SjZmUig/H6qySaN7cW4IAAAADp6P/hxyxqBsc/1siBRINJGSBaB9r2G/GlcTw/4WmILuIDp02+0ismyFHxjA5nUKtfNKvEXyoCypsqZ6N6F8dWxsFT49oBXSOGEZK8xqvFNxJmcWEvN47f8fw6aPrkV/VEwJwxJs9xv2AHHK9CZb5L7Jns3FIsTAZ3QJBnsGeAzUAAAABGftiUW9fGMFevIpNvF5rZuSa7U9z9Cp9jM3YS2BDtez+CSafNO/ZvkExDC/aogZ0N78UDWU3DKeG1DtUhX+iv</SSIS:Property>
+        SSIS:Name="Value">Data Source=.,42419;Initial Catalog=tSQLt_SSISTemplate;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</SSIS:Property>
       <SSIS:Property
         SSIS:Name="DataType">18</SSIS:Property>
     </SSIS:Properties>

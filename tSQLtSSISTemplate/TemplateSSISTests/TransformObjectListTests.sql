@@ -1,7 +1,8 @@
-﻿CREATE SCHEMA TransformObjectListTests AUTHORIZATION [tSQLt.TestClass]
+﻿--EXEC tSQLt.DropClass 'TransformObjectListTests'
 GO
---[@tSQLt:NoTransaction](DEFAULT)
-CREATE PROCEDURE TransformObjectListTests.[test SSIS is cool]
+CREATE SCHEMA TransformObjectListTests AUTHORIZATION [tSQLt.TestClass]
+GO
+CREATE PROCEDURE TransformObjectListTests.[execute SSIS package TransformObjectList]
 AS
 BEGIN
   DECLARE @package_name nvarchar(260) = N'TransformObjectList.dtsx';
@@ -44,13 +45,32 @@ SELECT @reference_id = ER.reference_id
       @package_name=@package_name, @execution_id=@execution_id OUTPUT, 
       @folder_name=@folder_name, @project_name=@project_name, 
       @use32bitruntime=False, @reference_id= @reference_id, @runinscaleout=False
-  SELECT @execution_id
+  PRINT 'SSIS ExecutionId:'+ CAST(@execution_id AS NVARCHAR(MAX));
 
   EXEC [SSISDB].[catalog].[set_execution_parameter_value] @execution_id, @object_type = 50, @parameter_name=N'LOGGING_LEVEL', @parameter_value=@logging_level;
   EXEC [SSISDB].[catalog].[set_execution_parameter_value] @execution_id, @object_type = 50, @parameter_name=N'SYNCHRONIZED', @parameter_value=@is_synchronized;
 
-
   EXEC [SSISDB].[catalog].[start_execution] @execution_id
+
+END
+GO
+GO
+--[@tSQLt:NoTransaction](DEFAULT)
+CREATE PROCEDURE TransformObjectListTests.[test SSIS is cool]
+AS
+BEGIN
+
+  EXEC tSQLt.FakeTable 'dbo.TransformedObjectList';
+  EXEC tSQLt.FakeTable 'SSISObjects.TransformObjectList_GetObjects';
+  EXEC('INSERT INTO SSISObjects.TransformObjectList_GetObjects(QuotedSchemaName,QuotedName) VALUES(''[QSN1]'',''[QN1]'');');
+  
+  EXEC TransformObjectListTests.[execute SSIS package TransformObjectList];
+
+  SELECT QuotedFullName INTO #Actual FROM dbo.TransformedObjectList;
+  SELECT TOP(0)A.* INTO #Expected FROM #Actual A RIGHT JOIN #Actual X ON 1=0;
+  INSERT INTO #Expected VALUES('[QSN1].[QN1]');
+
+  EXEC tSQLt.AssertEqualsTable '#Expected','#Actual';
 
 
 
