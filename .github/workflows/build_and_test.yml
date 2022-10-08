@@ -139,16 +139,7 @@ jobs:
                               -As DataSet -OutputSqlErrors $true -AbortOnError -verbose
 
           New-Item -Path "." -Name "TestResults" -ItemType "directory"
-          $dataSet.Tables[0].Item(0)|Out-File "./TestResults/TestResults.xml";        
-       
-       
-      - name: Publish Test Report
-        uses: dorny/test-reporter@v1
-        if: success() || failure()    # run this step even if previous step failed
-        with:
-          name: tSQLt Tests            # Name of the check run which will be created
-          path: ./TestResults/TestResults.xml    # Path to test results
-          reporter: java-junit        # Format of test results    
+          $dataSet.Tables[0].Item(0)|Out-File "./TestResults/TestResults.xml";                
 
       - name: Upload Test Results Artifact
         uses: actions/upload-artifact@v2
