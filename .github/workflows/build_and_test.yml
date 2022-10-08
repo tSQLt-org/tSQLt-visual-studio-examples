@@ -77,11 +77,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
-      - name: Install .NET Framework 4.8 Developer Pack
-        shell: pwsh
-        run: | 
-          choco install netfx-4.8-devpack
+
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.3
