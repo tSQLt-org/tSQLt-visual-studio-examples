@@ -78,6 +78,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.3
 
@@ -138,7 +139,7 @@ jobs:
                               -As DataSet -OutputSqlErrors $true -AbortOnError -verbose
 
           New-Item -Path "." -Name "TestResults" -ItemType "directory"
-          $dataSet.Tables[0].Item(0)|Out-File "./TestResults/TestResults.xml";
+          $dataSet.Tables[0].Item(0)|Out-File "./TestResults/TestResults.xml";                
 
       - name: Upload Test Results Artifact
         uses: actions/upload-artifact@v2
