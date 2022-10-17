@@ -1,45 +1,39 @@
 ﻿/*--
-EXEC tSQLt.DropClass [dbo_CalculateDiscountTests];
-GO
+EXEC tSQLt.DropClass dbo_CalculateDiscountTests;
 --*/
-CREATE SCHEMA [dbo_CalculateDiscountTests] AUTHORIZATION [tSQLt.TestClass];
 GO
-CREATE PROCEDURE dbo_CalculateDiscountTests.[test returns no discount for order value 49.00]
+CREATE SCHEMA dbo_CalculateDiscountTests AUTHORIZATION [tSQLt.TestClass];
+GO
+CREATE PROCEDURE dbo_CalculateDiscountTests.[test returns no discount if order ammount is $49]
 AS
 BEGIN
-  --Assemble
+  /*Assemble*/
 
-  --Act
-  DECLARE @Actual NUMERIC(13,2) = (SELECT discount FROM dbo.CalculateDiscount(49.00) AS CD);
-
-  --Assert
-  EXEC tSQLt.AssertEquals @Expected = 0, @Actual = @Actual;
-
+  /*Act*/
+  DECLARE @Actual DECIMAL(13,2) = (SELECT Discount FROM dbo.CalculateDiscount(49.00));
+  /*Assert*/
+  EXEC tSQLt.AssertEquals 0, @Actual;
 END;
 GO
-CREATE PROCEDURE dbo_CalculateDiscountTests.[test returns 10% discount for order value 51.00]
+CREATE PROCEDURE dbo_CalculateDiscountTests.[test returns no discount if order ammount is $51]
 AS
 BEGIN
-  --Assemble
+  /*Assemble*/
 
-  --Act
-  DECLARE @Actual NUMERIC(13,2) = (SELECT discount FROM dbo.CalculateDiscount(51.00) AS CD);
-
-  --Assert
-  EXEC tSQLt.AssertEquals @Expected = 5.10, @Actual = @Actual;
-
+  /*Act*/
+  DECLARE @Actual DECIMAL(13,2) = (SELECT Discount FROM dbo.CalculateDiscount(51.00));
+  /*Assert*/
+  EXEC tSQLt.AssertEquals 5.1, @Actual;
 END;
 GO
-CREATE PROCEDURE dbo_CalculateDiscountTests.[test returns 10% discount for order value 50.00]
+CREATE PROCEDURE dbo_CalculateDiscountTests.[test returns no discount if order ammount is $50]
 AS
 BEGIN
-  --Assemble
+  /*Assemble*/
 
-  --Act
-  DECLARE @Actual NUMERIC(13,2) = (SELECT discount FROM dbo.CalculateDiscount(50.00) AS CD);
-
-  --Assert
-  EXEC tSQLt.AssertEquals @Expected = 5.00, @Actual = @Actual;
-
+  /*Act*/
+  DECLARE @Actual DECIMAL(13,2) = (SELECT Discount FROM dbo.CalculateDiscount(50.00));
+  /*Assert*/
+  EXEC tSQLt.AssertEquals 5, @Actual;
 END;
 GO
